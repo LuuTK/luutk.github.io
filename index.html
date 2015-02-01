@@ -7,7 +7,7 @@
 </body>
 </html>
 
----->
+-->
 
 
 
@@ -97,7 +97,7 @@
             $('#logoutText').hide();
             loggedIn = false;
             $('#uName').text('Welcome ');
-            $('#imgHolder').attr('src', 'none.jpg');
+            $('#imgHolder').attr('src', 'none.jpg'); 
         }
 
     </script>
@@ -107,6 +107,8 @@
     <a href="#" onClick="login();" id="loginText"> Click here to login 
     	NOTE : DEMO TAKEN FROM http://www.gethugames.in/blog/2012/04/authentication-and-authorization-for-google-apis-in-javascript-popup-window-tutorial.html 
     </a>
+    <p>API for calendar : https://developers.google.com/apis-explorer/#s/calendar/v3/calendar.events.list?calendarId=ecse428project%2540gmail.com&_h=17&
+    </p>
     <a href="#" style="display:none" id="logoutText" target="myIFrame" onclick="myIFrame.location='https://www.google.com/accounts/Logout'; startLogoutPolling();return false;"> Click here to logout </a>
     <iframe name="myIFrame" id="myIFrame" style="display:none"></iframe>
     <div id="uName"></div>
