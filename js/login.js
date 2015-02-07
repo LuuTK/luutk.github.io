@@ -3,7 +3,7 @@
    */
 function signinCallback(resp) {
 	
-  gapi.client.load('plus', 'v1', apiClientLoaded);
+  //gapi.client.load('plus', 'v1', apiClientLoaded);
   if (resp['status']['signed_in']) {
     var access_token = resp['access_token'];
     console.log(access_token);
@@ -13,7 +13,24 @@ function signinCallback(resp) {
   }
   
  //gapi.client.load('plus', 'v1', apiClientLoaded);
+ gapi.client.load('oauth2', 'v2', function() {
+  gapi.client.oauth2.userinfo.get().execute(function(resp) {
+    // Shows user email
+    alert("resp.email = " + resp.email);
+    console.log(resp.email);
+    
+    
+    localStorage.setItem("email", resp.email);
+    //window.open("main.html", "_self");
+  });
+});
 
+gapi.client.load('plus', 'v1', function() {
+  gapi.client.plus.people.get( {'userId' : 'me'} ).execute(function(resp) {
+    // Shows other profile information
+    console.log(resp);
+  });
+});
 
 /*
   if (resp['status']['signed_in']) {
@@ -46,26 +63,6 @@ function getAccessToken() {
    */
   function handleEmailResponse(resp) {
   	alert("handleEmailResponse");
-  	 gapi.client.load('oauth2', 'v2', function() {
-  gapi.client.oauth2.userinfo.get().execute(function(resp) {
-    // Shows user email
-    alert("resp.email = " + resp.email);
-    console.log(resp.email);
-    
-    
-    localStorage.setItem("email", resp.email);
-    //window.open("main.html", "_self");
-  });
-});
-
-gapi.client.load('plus', 'v1', function() {
-  gapi.client.plus.people.get( {'userId' : 'me'} ).execute(function(resp) {
-    // Shows other profile information
-    console.log(resp);
-  });
-});
-   
-   /*
     var primaryEmail;
     
     console.log("localStorage = " + JSON.stringify(localStorage));
@@ -76,7 +73,6 @@ gapi.client.load('plus', 'v1', function() {
     }
     localStorage.setItem("email", primaryEmail);
     console.log("localStorage = " + JSON.stringify(localStorage));
-    */
   }
 
 // Displays full calendar when main.html is loaded
