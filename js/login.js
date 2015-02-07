@@ -41,6 +41,7 @@ function getAccessToken() {
     console.log(JSON.stringify(resp.emails));
 
     localStorage.setItem("email", primaryEmail);
+    console.log("in handleEmailResponse function localStorage = " + JSON.stringify(localStorage));
   }
   
 
@@ -51,11 +52,11 @@ function getAccessToken() {
 function loadFullCalendar() {
     // load user email
     console.log("load main");
-    console.log(JSON.stringify(localStorage));
+    console.log(JSON.stringify(localStorage)); // only has accessToken property
     
     var email = localStorage.getItem("email");
     
-    console.log("email = " + email);
+    console.log("Email = " + email);
     
     
     document.getElementById('user_email').innerHTML = "Welcome " + email;
