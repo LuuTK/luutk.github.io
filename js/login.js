@@ -34,7 +34,7 @@ gapi.client.load('plus', 'v1', function() {
 		
 		
 		alert("not null, user = " + localStorage.getItem("accessToken"));
-		alert("not null, user = " + localStorage.getItem("email"));
+		alert("not null, email = " + localStorage.getItem("email"));
 		//window.open("main.html", "_self");
 	}
 
