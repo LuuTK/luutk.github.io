@@ -1,19 +1,31 @@
+var access_token;
+// var primaryEmail;
+// function signinCallback(authResult) {
+//     if (authResult['status']['signed_in']) {
+//         access_token = authResult['access_token'];
+//         alert(access_token);
+//         localStorage.setItem("accessToken", access_token);
+//         signinSuccess(true);
+
+// }
+
 /**
    * Handler for the signin callback triggered after the user selects an account.
    */
 function signinCallback(resp) {
-  gapi.client.load('plus', 'v1', apiClientLoaded);
-  if (resp['status']['signed_in']) {
-    var access_token = resp['access_token'];
-    console.log(access_token);
-    localStorage.setItem("accessToken", access_token);
-    // go to main.html
-    window.open("main.html", "_self");
-  }
+    gapi.client.load('plus', 'v1', apiClientLoaded);
+    if (resp['status']['signed_in']) {
+        access_token = resp['access_token'];
+        // alert(access_token);
+        localStorage.setItem("accessToken", access_token);
+        signinSuccess(true);
+
+    }
 }
 
+
 function getAccessToken() {
-  return localStorage.getItem("accessToken");
+    return localStorage.getItem("accessToken");
 }
   /**
    * Sets up an API call after the Google API client loads.
@@ -32,41 +44,22 @@ function getAccessToken() {
     for (var i=0; i < resp.emails.length; i++) {
       if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
     }
-
-    localStorage.setItem("email", primaryEmail);
+    // document.getElementById('responseContainer').value = 'Primary email: ' +
+         primaryEmail + '\n\nFull Response:\n' + JSON.stringify(resp);
+     alert(primaryEmail+" Email");
+    localStorage.setItem("email",primaryEmail);
   }
 
-// Displays full calendar when main.html is loaded
-function loadFullCalendar() {
-    console.log("load main");
+
+$(document).ready(function() {
     // page is now ready, initialize the calendar...
     var email = localStorage.getItem("email");
-    document.getElementById('user_email').innerHTML = "Welcome " + email;
+    console.log(email+" get email");
     $('#calendar').fullCalendar({
-      googleCalendarApiKey: 'AIzaSyCiq6fTkZwSKgvhzY-HNDZM5YQD0ebyZBE',
-      events: {
-          googleCalendarId: email
-      }
+        googleCalendarApiKey: 'AIzaSyCiq6fTkZwSKgvhzY-HNDZM5YQD0ebyZBE',
+        events: {
+            googleCalendarId: email
+        }
     });
-}
 
-// Logs out user by invalidating the access token
-function logout() {
-  var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' + getAccessToken();
-
-  // Perform an asynchronous GET request.
-  $.ajax({
-    type: 'GET',
-    url: revokeUrl,
-    async: false,
-    contentType: "application/json",
-    dataType: 'jsonp',
-    success: function(nullResponse) {
-      window.open("login.html", "_self");
-    },
-    error: function(e) {
-      // Handle the error
-      // console.log(e);
-    }
-  });
-}
+});
