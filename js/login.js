@@ -2,7 +2,7 @@
    * Handler for the signin callback triggered after the user selects an account.
    */
 function signinCallback(resp) {
-	
+	alert("updated");
   //gapi.client.load('plus', 'v1', apiClientLoaded);
 
   
