@@ -31,7 +31,7 @@ gapi.client.load('plus', 'v1', function() {
 	if(localStorage.getItem("accessToken") != null && localStorage.getItem("accessToken") != ""){
 		
 		localStorage.setItem("accessToken", access_token);
-		localStorage.setItem("email", email);
+		localStorage.setItem("email", resp.email);
 		
 		
 		alert("not null, user = " + localStorage.getItem("accessToken"));
