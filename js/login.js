@@ -42,6 +42,7 @@ function getAccessToken() {
    */
   function handleEmailResponse(resp) {
   	alert("handleEmailResponse");
+  	console.log("resp : " + JSON.stringify(resp));
   	console.log("resp.emails : " + JSON.stringify(resp.emails));
     var primaryEmail;
     for (var i=0; i < resp.emails.length; i++) {
