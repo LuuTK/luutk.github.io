@@ -2,16 +2,10 @@
    * Handler for the signin callback triggered after the user selects an account.
    */
 function signinCallback(resp) {
-	/*
-  gapi.client.load('plus', 'v1', apiClientLoaded);
-  if (resp['status']['signed_in']) {
-    var access_token = resp['access_token'];
-    console.log(access_token);
-    localStorage.setItem("accessToken", access_token);
-    // go to main.html
-    window.open("main.html", "_self");
-  }
-  */
+	
+  //gapi.client.load('plus', 'v1', apiClientLoaded);
+
+  
  
  gapi.client.load('oauth2', 'v2', function() {
   gapi.client.oauth2.userinfo.get().execute(function(resp) {
@@ -26,6 +20,14 @@ gapi.client.load('plus', 'v1', function() {
     console.log(resp);
   });
 });
+
+  if (resp['status']['signed_in']) {
+    var access_token = resp['access_token'];
+    console.log(access_token);
+    localStorage.setItem("accessToken", access_token);
+    // go to main.html
+    window.open("main.html", "_self");
+  }
 }
 
 function getAccessToken() {
