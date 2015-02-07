@@ -44,9 +44,9 @@ function apiClientLoaded() {
 		var request = gapi.client.plus.people.get({
 			'userId' : 'me'
 		});
-
+		console.log("request = " + JSON.stringify(request));
 		request.execute(function(resp) {
-			console.log(JSON.string(resp));
+			console.log("resp = " + JSON.string(resp));
 			console.log('ID: ' + resp.id);
 			console.log('Display Name: ' + resp.displayName);
 			//console.log('Image URL: ' + resp.image.url);
