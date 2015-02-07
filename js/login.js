@@ -2,6 +2,7 @@
    * Handler for the signin callback triggered after the user selects an account.
    */
 function signinCallback(resp) {
+	alert("signinCallback");
   gapi.client.load('plus', 'v1', apiClientLoaded);
   if (resp['status']['signed_in']) {
     var access_token = resp['access_token'];
@@ -13,6 +14,7 @@ function signinCallback(resp) {
 }
 
 function getAccessToken() {
+	alert("getAccessToken");
   return localStorage.getItem("accessToken");
 }
   /**
@@ -39,12 +41,13 @@ function getAccessToken() {
    * @param resp The API response object with the user email and profile information.
    */
   function handleEmailResponse(resp) {
+  	alert("handleEmailResponse");
     var primaryEmail;
     for (var i=0; i < resp.emails.length; i++) {
       if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
     }
     //console.log(JSON.stringify(resp.emails));
-	alert("hello");
+	
     localStorage.setItem("email", primaryEmail);
     console.log("in handleEmailResponse function localStorage = " + JSON.stringify(localStorage));
   }
