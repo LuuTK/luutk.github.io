@@ -38,6 +38,8 @@ function getAccessToken() {
 
 // Displays full calendar when main.html is loaded
 function loadFullCalendar() {
+	alert("loadFullCalendar");
+	
     console.log("load main");
     
     // page is now ready, initialize the calendar...
