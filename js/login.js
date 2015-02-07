@@ -26,8 +26,7 @@ function getAccessToken() {
     var request = gapi.client.plus.people.get({
     	userId: 'me'
     	});
-    	
-    handleEmailResponse(request);
+    console.log("apiClientLoaded - request : " + JSON.stringify(request));
     /*
     var request = gapi.client.plus.people.get({
     	userId: 'me'
@@ -42,8 +41,12 @@ function getAccessToken() {
    */
   function handleEmailResponse(resp) {
   	alert("handleEmailResponse");
-  	console.log("resp : " + JSON.stringify(resp));
-  	console.log("resp.emails : " + JSON.stringify(resp.emails));
+  	
+  	 
+
+  	console.log("resp : " + JSON.stringify(resp)); //resp : {"G":1,"B":{"ha":null,"B":{"path":"/plus/v1/people/me","method":"GET","params":{},"headers":{},"root":"https://www.googleapis.com"},"G":"auto"}}
+
+  	console.log("resp.emails : " + JSON.stringify(resp.emails)); // resp.emails : undefined
     var primaryEmail;
     for (var i=0; i < resp.emails.length; i++) {
       if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
