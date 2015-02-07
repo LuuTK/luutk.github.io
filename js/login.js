@@ -43,8 +43,8 @@ function getAccessToken() {
     for (var i=0; i < resp.emails.length; i++) {
       if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
     }
-    console.log(JSON.stringify(resp.emails));
-
+    //console.log(JSON.stringify(resp.emails));
+	alert("hello");
     localStorage.setItem("email", primaryEmail);
     console.log("in handleEmailResponse function localStorage = " + JSON.stringify(localStorage));
   }
@@ -61,7 +61,7 @@ function loadFullCalendar() {
     
     var email = localStorage.getItem("email");
     
-    console.log("Email = " + email);
+    console.log("email = " + email);
     
     
     document.getElementById('user_email').innerHTML = "Welcome " + email;
