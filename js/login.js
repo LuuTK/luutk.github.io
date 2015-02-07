@@ -32,6 +32,7 @@ function getAccessToken() {
     
     
     var request2 = gapi.client.plus.people.get({
+    	userId: 'me',
     	emails : 'me'
     	});
     	
