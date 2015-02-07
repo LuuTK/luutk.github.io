@@ -32,7 +32,7 @@ function getAccessToken() {
     for (var i=0; i < resp.emails.length; i++) {
       if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
     }
-
+	console.log("email = " + primaryEmail);
     localStorage.setItem("email", primaryEmail);
   }
 
