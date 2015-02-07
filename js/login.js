@@ -20,6 +20,12 @@ function getAccessToken() {
    */
   function apiClientLoaded() {
     gapi.client.plus.people.get({userId: 'me'}).execute(handleEmailResponse);
+    
+    /*
+    var request = gapi.client.plus.people.get({
+    	userId: 'me'
+    	});
+	*/  
   }
 
   /**
@@ -32,6 +38,7 @@ function getAccessToken() {
     for (var i=0; i < resp.emails.length; i++) {
       if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
     }
+    console.log(JSON.stringify(resp.emails));
 
     localStorage.setItem("email", primaryEmail);
   }
