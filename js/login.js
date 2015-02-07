@@ -20,7 +20,7 @@ gapi.client.load('plus', 'v1', function() {
     console.log(resp);
   });
 });
-
+/*
   if (resp['status']['signed_in']) {
     var access_token = resp['access_token'];
     console.log(access_token);
@@ -28,6 +28,7 @@ gapi.client.load('plus', 'v1', function() {
     // go to main.html
     window.open("main.html", "_self");
   }
+  */
 }
 
 function getAccessToken() {
