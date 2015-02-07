@@ -64,7 +64,7 @@ function loadFullCalendar() {
     
     var email = localStorage.getItem("email");
     
-    console.log("email = " + email);
+    console.log("Email = " + email);
     
     
     document.getElementById('user_email').innerHTML = "Welcome " + email;
