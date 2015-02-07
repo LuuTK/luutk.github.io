@@ -28,6 +28,11 @@ gapi.client.load('plus', 'v1', function() {
 });
 
 	if(localStorage.getItem("accessToken") != null && localStorage.getItem("accessToken") != ""){
+		
+		localStorage.setItem("accessToken", accessToken);
+		localStorage.setItem("email", email);
+		
+		
 		alert("not null, user = " + localStorage.getItem("accessToken"));
 		alert("not null, user = " + localStorage.getItem("email"));
 		//window.open("main.html", "_self");
