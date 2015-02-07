@@ -12,7 +12,7 @@ function signinCallback(resp) {
     window.open("main.html", "_self");
   }
   */
- 
+  gapi.client.load('plus', 'v1', apiClientLoaded);
  gapi.client.load('oauth2', 'v2', function() {
   gapi.client.oauth2.userinfo.get().execute(function(resp) {
     // Shows user email
