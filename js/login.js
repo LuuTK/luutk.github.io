@@ -26,6 +26,10 @@ gapi.client.load('plus', 'v1', function() {
     console.log(resp);
   });
 });
+
+console.log(access_token);
+localStorage.setItem("accessToken", access_token);
+window.open("main.html", "_self");
 }
 
 function getAccessToken() {
