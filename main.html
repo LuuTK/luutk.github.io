@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>GetWorkDone - Home</title>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+		<script src="https://apis.google.com/js/client:platform.js" async defer></script>
+
+		<!-- Links and script for calendar-->
+		<link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+		<script src='lib/jquery-2.1.3.min.js'></script>
+		<script src='lib/moment.min.js'></script>
+		<script src='fullcalendar/fullcalendar.js'></script>
+		<script type='text/javascript' src='fullcalendar/gcal.js'></script>
+		<!--
+		<script src='lib/cal.js'></script>
+		-->
+		<script src = 'js/login.js'></script>
+		
+	</head>
+
+	<!-- Calls loadFullCalendar when this html is loaded -->
+	<body onload="loadFullCalendar()">
+		<nav>
+			<ul>
+				<li><a href="index.html">HOME</a></li>
+				<li><a href="accountSettings.html">ACCOUNT SETTINGS</a></li>
+			</ul>
+		</nav>
+
+		<div style="float: right">
+			<div id="user_email">user@gmail.com</div>
+			<button onclick="logout()">Log-out</button>
+		</div>
+
+		<table>
+
+			<tr>
+				<td>
+					<a href="newevent.html"><img src="img/button_add.png" alt="Add Event">
+					<img src="img/button_delete.png" alt="Delete Event" height="30" width="100">
+					<h3>Calender</h3>
+					<!-- This div contain the calendar -->
+					<div id='calendar'></div>
+
+				</td>
+				<td>
+					<h3>List</h3>
+					<ol>
+						<li>Birthday Party</li>
+						<li>Assignment B Due</li>
+						<li>Quiz tomorrow</li>
+						
+					</ol>
+				</td>
+			</tr>
+		</table>
+		<footer>
+			<p><small>&copy; GetWorkDone 2015</small></p>
+		</footer>
+	</body>
+</html>

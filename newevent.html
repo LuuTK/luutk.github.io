@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html style="width:400px; height:178px; font-family:Arial">
+
+<head>
+  <meta charset="UTF-8">
+  <script src="jquery-2.1.3.min.js"></script>
+  <title>Create New Event</title>
+</head>
+
+<body>
+  <p>
+      <table style="width:100%">
+        <tr>
+          <th>Event</th>
+          <td><input type="text" name="event" style="width:75%" id="eventname"></td>
+        </tr>
+        <tr>
+          <th>Location</th>
+          <td><input type="text" name="location" style="width:75%" id="location"></td>
+        </tr>
+        <tr>
+          <th>From</th>
+          <td>
+            <input type="date" name="fdate" id="fdate"> 
+            <input type="time" name="ftime" id="ftime">
+          </td>
+        </tr>
+        <tr>
+          <th>To</th>
+          <td>
+            <input type="date" name="tdate" id="tdate"> 
+            <input type="time" name="ttime" id="ttime">
+          </td>
+        </tr>
+      </table>
+    </p>
+
+    <script>
+        
+      function sendData()
+      {
+         var data = new Array();
+
+         data[0] = document.getElementById("eventname").value;
+         data[1] = document.getElementById("location").value;
+         data[2] = document.getElementById("fdate").value;
+         data[3] = document.getElementById("ftime").value;
+         data[4] = document.getElementById("tdate").value;
+         data[5] = document.getElementById("ftime").value;
+         
+         var packed = "";
+
+         for (i = 0; i < data.length; i++) {
+            if (i > 0)
+               packed += ",";
+
+            packed += escape(data[i]);
+         }
+
+         window.location = "main.html?" + packed;
+      }
+    </script>
+
+    <p align="center">
+      <a href="javascript:sendData();">Done</a>
+      <a href="main.html">Cancel</a>
+    </p>
+</body>
+</html>
