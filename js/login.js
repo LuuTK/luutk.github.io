@@ -28,7 +28,6 @@ function signinCallback(resp) {
 gapi.client.load('plus', 'v1', function() {
   gapi.client.plus.people.get( {'userId' : 'me'} ).execute(function(resp) {
     // Shows other profile information
-    alert("resp = " + resp);
     console.log(resp);
   });
 });
