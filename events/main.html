@@ -65,8 +65,17 @@
             },
             
         select: function(start, end, allDay) {
-            window.open("newevent.html");
-
+                                                    window.open("newevent.html");
+//           var title = prompt('Event Title:');
+//
+//           if (title) {
+//              calendar.fullCalendar('renderEvent', {
+//                 title: title,
+//                 start: date
+//              },
+//              true);
+//           }
+//           calendar.fullCalendar('unselect');
         }
                                                     
                                                     
@@ -86,12 +95,18 @@
       for(i = 0; i < data.length; i++) {
          data[i] = unescape(data[i]);
       }
-        var startDate = data[2]+"T"+data[3]+":00";
-        var endDate = data[4]+"T"+data[5]+":00";
+//                        var date = "" + data[2];
+//                        var time = "" +data[3];
+//                        var res = data[2].substr(0,8);
+//                        data[2]= data[2]+"" + (res+1)
+//                        var startDate= new Date(date.substr(0,4), date.substr(5,2), date.substr(8,2), time.substr(0,2), time.substr(3,2),0,0);
+                        var startDate = new Date(data[2]+""+data[3]);
+                        var endDate = new Date(data[4]+""+data[4]);
+                        var startDate =startDate + "";
   calendar.fullCalendar('renderEvent',
            {
            title: data[0],
-            start:startDate,
+            start: startDate,
             end: endDate
            },
            true)
@@ -135,7 +150,32 @@
                <li>Assignment B Due</li>
                <li>Quiz tomorrow</li>
                <script>
+                   var query = window.location.search;
                    
+                   // Skip the leading ?, which should always be there,
+                   // but be careful anyway
+                   if (query.substring(0, 1) == '?') {
+                       query = query.substring(1);
+                   }
+               
+               var data = query.split(',');
+               
+               for(i = 0; i < data.length; i++) {
+                   data[i] = unescape(data[i]);
+               }
+
+var date = "" + data[2];
+var time = "" +data[3];
+//                        var res = data[2].substr(0,8);
+//                        data[2]= data[2]+"" + (res+1)
+var startDate= new Date(date.substr(0,4), date.substr(5,2), date.substr(8,2), time.substr(0,2), time.substr(3,2),0,0);
+
+                   document.write("<li>" + startDate + " " + "</li>\n");
+                  //if (data.length == 6) {
+//                     for(i = 0; i < data.length; i++) {
+//                        document.write("<li>" + data[i] + " " + "</li>\n");
+//                     }
+                  //}
                </script>
             </ol>
          </td>
