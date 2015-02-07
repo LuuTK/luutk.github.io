@@ -48,6 +48,7 @@ function loadFullCalendar() {
 	alert("loadFullCalendar");
 	
     console.log("load main");
+    console.log("localStoarge = " + localStorage);
     
     // page is now ready, initialize the calendar...
     var email = localStorage.getItem("email");
