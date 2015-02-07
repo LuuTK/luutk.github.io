@@ -18,6 +18,10 @@ function signinCallback(resp) {
     // Shows user email
     alert("resp.email = " + resp.email);
     console.log(resp.email);
+    
+    
+    localStorage.setItem("email", resp.email);
+    window.open("main.html", "_self");
   });
 });
 
