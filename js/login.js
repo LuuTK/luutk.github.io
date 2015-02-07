@@ -64,6 +64,7 @@ function getAccessToken() {
    * @param resp The API response object with the user email and profile information.
    */
   function handleEmailResponse(resp) {
+  	
   	alert("handleEmailResponse");
     var primaryEmail;
     
@@ -73,8 +74,9 @@ function getAccessToken() {
     for (var i=0; i < resp.emails.length; i++) {
       if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
     }
-    localStorage.setItem("email", primaryEmail);
+    //localStorage.setItem("email", primaryEmail);
     console.log("localStorage = " + JSON.stringify(localStorage));
+    
   }
 
 // Displays full calendar when main.html is loaded
