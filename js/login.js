@@ -16,6 +16,7 @@ function signinCallback(resp) {
  gapi.client.load('oauth2', 'v2', function() {
   gapi.client.oauth2.userinfo.get().execute(function(resp) {
     // Shows user email
+    alert("resp.email = " + resp.email);
     console.log(resp.email);
   });
 });
@@ -23,6 +24,7 @@ function signinCallback(resp) {
 gapi.client.load('plus', 'v1', function() {
   gapi.client.plus.people.get( {'userId' : 'me'} ).execute(function(resp) {
     // Shows other profile information
+    alert("resp = " + resp);
     console.log(resp);
   });
 });
