@@ -46,6 +46,7 @@ function apiClientLoaded() {
 		});
 
 		request.execute(function(resp) {
+			console.log(JSON.string(resp));
 			console.log('ID: ' + resp.id);
 			console.log('Display Name: ' + resp.displayName);
 			//console.log('Image URL: ' + resp.image.url);
