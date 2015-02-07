@@ -22,6 +22,7 @@ function getAccessToken() {
    */
   function apiClientLoaded() {
   	alert("apiClientLoaded");
+  	/*
    gapi.client.plus.people.get({
     	userId: 'me'
     	}).execute(handleEmailResponse);
@@ -39,10 +40,18 @@ function getAccessToken() {
     	});
     	
     console.log("apiClientLoaded - request2 : " + JSON.stringify(request2));
-    
-
-  }
-
+    */
+    gapi.client.load('plus', 'v1', function() {
+          var request = gapi.client.plus.people.get({
+            'userId': 'me'
+          });
+          
+          request.execute(function(resp){
+          	console.log(resp.displayName);
+          	console.log(resp.emails);
+          });
+});
+}
   /**
    * Response callback for when the API client receives a response.
    *
