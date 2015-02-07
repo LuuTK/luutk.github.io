@@ -40,22 +40,40 @@ function apiClientLoaded() {
 
 	 console.log("apiClientLoaded - request2 : " + JSON.stringify(request2));
 	 */
-	gapi.client.load('plus', 'v1', function() {
-		var request = gapi.client.plus.people.get({
-			'userId' : 'me'
-		});
-		console.log("request = " + JSON.stringify(request));
-		request.execute(function(resp) {
-			console.log("resp = " + JSON.string(resp));
-			console.log('ID: ' + resp.id);
-			console.log('Display Name: ' + resp.displayName);
-			//console.log('Image URL: ' + resp.image.url);
-			console.log('Profile URL: ' + resp.url);
-		});
 
+	/*
+	 gapi.client.load('plus', 'v1', function() {
+	 var request = gapi.client.plus.people.get({
+	 'userId' : 'me'
+	 });
+	 console.log("request = " + JSON.stringify(request));
+	 request.execute(function(resp) {
+	 console.log("resp = " + JSON.string(resp));
+	 console.log('ID: ' + resp.id);
+	 console.log('Display Name: ' + resp.displayName);
+	 //console.log('Image URL: ' + resp.image.url);
+	 console.log('Profile URL: ' + resp.url);
+	 });
+
+	 });
+
+	 */
+	gapi.client.load('oauth2', 'v2', function() {
+		gapi.client.oauth2.userinfo.get().execute(function(resp) {
+			// Shows user email
+			console.log(resp.email);
+		});
 	});
-	}
 
+	gapi.client.load('plus', 'v1', function() {
+		gapi.client.plus.people.get({
+			'userId' : 'me'
+		}).execute(function(resp) {
+			// Shows profile information
+			console.log(resp);
+		});
+	});
+}
 
 /**
  * Response callback for when the API client receives a response.
