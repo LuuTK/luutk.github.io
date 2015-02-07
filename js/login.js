@@ -51,10 +51,13 @@ function getAccessToken() {
 function loadFullCalendar() {
     // load user email
     console.log("load main");
+    console.log(JSON.stringify(localStorage));
     
     var email = localStorage.getItem("email");
     
     console.log("email = " + email);
+    
+    
     document.getElementById('user_email').innerHTML = "Welcome " + email;
     //Calendar
     $('#calendar').fullCalendar({
