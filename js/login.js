@@ -17,7 +17,9 @@ function signinCallback(resp) {
  gapi.client.load('oauth2', 'v2', function() {
   gapi.client.oauth2.userinfo.get().execute(function(resp) {
     // Shows user email
-    console.log(resp.email);
+    console.log("resp.email = " + resp.email);
+    localStorage.setItem("accessToken", access_token);
+	localStorage.setItem("email", resp.email);
   });
 });
 
@@ -28,19 +30,8 @@ gapi.client.load('plus', 'v1', function() {
   });
 });
 
-	if(localStorage.getItem("accessToken") != null && localStorage.getItem("accessToken") != ""){
-		
-		localStorage.setItem("accessToken", access_token);
-		localStorage.setItem("email", resp.email);
-		
-		
-		alert("not null, user = " + localStorage.getItem("accessToken"));
-		alert("not null, email = " + localStorage.getItem("email"));
-		//window.open("main.html", "_self");
-	}
 
-localStorage.setItem("accessToken", access_token);
-localStorage.setItem("email", resp.email);
+
 console.log("user = " + localStorage.getItem("accessToken"));
 console.log("email = " + localStorage.getItem("email"));
 
