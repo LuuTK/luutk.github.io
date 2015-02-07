@@ -19,8 +19,13 @@ function getAccessToken() {
    * Sets up an API call after the Google API client loads.
    */
   function apiClientLoaded() {
-    gapi.client.plus.people.get({userId: 'me'}).execute(handleEmailResponse);
+    //gapi.client.plus.people.get({userId: 'me'}).execute(handleEmailResponse);
     
+    var request = gapi.client.plus.people.get({
+    	userId: 'me'
+    	});
+    	
+    handleEmailResponse(request);
     /*
     var request = gapi.client.plus.people.get({
     	userId: 'me'
