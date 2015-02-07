@@ -28,7 +28,7 @@ gapi.client.load('plus', 'v1', function() {
 });
 
 	if(localStorage.getItem("accessToken") != null && localStorage.getItem("accessToken") != ""){
-		alert("not null");
+		alert("not null, user = " + localStorage.getItem("accessToken"));
 		window.open("main.html", "_self");
 	}
 
@@ -56,14 +56,14 @@ function getAccessToken() {
   	alert("handleEmailResponse");
     var primaryEmail;
     
-    console.log("localStorage = " + JSON.stringify(localStorage));
-    console.log("resp = " + JSON.stringify(resp));
+    //console.log("localStorage = " + JSON.stringify(localStorage));
+    //console.log("resp = " + JSON.stringify(resp));
     
     for (var i=0; i < resp.emails.length; i++) {
       if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
     }
     //localStorage.setItem("email", primaryEmail);
-    console.log("localStorage = " + JSON.stringify(localStorage));
+    //console.log("localStorage = " + JSON.stringify(localStorage));
     
   }
 
@@ -72,7 +72,7 @@ function loadFullCalendar() {
 	alert("loadFullCalendar");
 	
     console.log("load main");
-    console.log("localStoarge = " + JSON.stringify(localStorage));
+    console.log("localStorage = " + JSON.stringify(localStorage));
     
     // page is now ready, initialize the calendar...
     var email = localStorage.getItem("email");
