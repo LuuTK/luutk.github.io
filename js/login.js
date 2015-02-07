@@ -31,6 +31,7 @@ gapi.client.load('plus', 'v1', function() {
     var access_token = resp['access_token'];
     console.log(access_token);
     localStorage.setItem("accessToken", access_token);
+    localStorage.setItem("email", resp.email);
     // go to main.html
     window.open("main.html", "_self");
   }
