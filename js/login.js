@@ -13,12 +13,14 @@ function signinCallback(resp) {
 }
 
 function getAccessToken() {
+	alert("getAccessToken");
   return localStorage.getItem("accessToken");
 }
   /**
    * Sets up an API call after the Google API client loads.
    */
   function apiClientLoaded() {
+  	alert("apiClientLoaded");
     gapi.client.plus.people.get({userId: 'me'}).execute(handleEmailResponse);
   }
 
@@ -28,6 +30,7 @@ function getAccessToken() {
    * @param resp The API response object with the user email and profile information.
    */
   function handleEmailResponse(resp) {
+  	alert("handleEmailResponse");
     var primaryEmail;
     for (var i=0; i < resp.emails.length; i++) {
       if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
