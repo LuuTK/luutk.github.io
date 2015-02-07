@@ -47,8 +47,8 @@ function getAccessToken() {
           });
           
           request.execute(function(resp){
-          	console.log(resp.displayName);
-          	console.log(resp.emails);
+          	console.log("response display name = " + resp.displayName);
+          	console.log("response emails = "  + resp.emails);
           });
 });
 }
