@@ -31,12 +31,11 @@ function getAccessToken() {
     	
     
     
-    var request = gapi.client.plus.people.get({
-    	userId: 'me',
+    var request2 = gapi.client.plus.people.get({
     	emails : 'me'
     	});
     	
-    console.log("apiClientLoaded - request : " + JSON.stringify(request));
+    console.log("apiClientLoaded - request2 : " + JSON.stringify(request2));
     /*
     var request = gapi.client.plus.people.get({
     	userId: 'me'
