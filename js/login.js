@@ -26,12 +26,17 @@ function getAccessToken() {
     	userId: 'me',
     	emails : 'me'
     	}).execute(handleEmailResponse);
-    /*
+    	
+    	
+    	
+    
+    
     var request = gapi.client.plus.people.get({
-    	userId: 'me'
+    	userId: 'me',
+    	emails : 'me'
     	});
-    	*/
-    //console.log("apiClientLoaded - request : " + JSON.stringify(request));
+    	
+    console.log("apiClientLoaded - request : " + JSON.stringify(request));
     /*
     var request = gapi.client.plus.people.get({
     	userId: 'me'
