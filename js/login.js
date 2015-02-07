@@ -54,7 +54,7 @@ function getAccessToken() {
     
     
     localStorage.setItem("email", resp.email);
-    window.open("main.html", "_self");
+    //window.open("main.html", "_self");
   });
 });
 
