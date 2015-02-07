@@ -26,6 +26,13 @@ gapi.client.load('plus', 'v1', function() {
     console.log(resp);
   });
 });
+
+	if(localStorage.getItem("accessToken") != null && localStorage.getItem("accessToken") != ""){
+		alert("not null");
+		window.open("main.html", "_self");
+	}
+
+
 }
 function getAccessToken() {
 	alert("getAccessToken");
