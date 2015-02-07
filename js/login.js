@@ -35,8 +35,8 @@ function getAccessToken() {
     for (var i=0; i < resp.emails.length; i++) {
       if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
     }
-
     localStorage.setItem("email", primaryEmail);
+    console.log("localStorage = " + JSON.stringify(localStorage));
   }
 
 // Displays full calendar when main.html is loaded
@@ -48,7 +48,7 @@ function loadFullCalendar() {
     // page is now ready, initialize the calendar...
     var email = localStorage.getItem("email");
     
-    console.log("localStorage = " + JSON.stringify(localStorage));
+    
     
     document.getElementById('user_email').innerHTML = "Welcome " + email;
     $('#calendar').fullCalendar({
