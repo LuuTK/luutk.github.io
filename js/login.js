@@ -41,16 +41,17 @@ function getAccessToken() {
     	
     console.log("apiClientLoaded - request2 : " + JSON.stringify(request2));
     */
-    gapi.client.load('plus', 'v1', function() {
-          var request = gapi.client.plus.people.get({
-            'userId': 'me'
-          });
-          
-          request.execute(function(resp){
-          	console.log("response display name = " + resp.displayName);
-          	console.log("response emails = "  + resp.emails);
-          });
+var request = gapi.client.plus.people.get({
+  'userId' : 'me'
 });
+
+request.execute(function(resp) {
+  console.log('ID: ' + resp.id);
+  console.log('Display Name: ' + resp.displayName);
+  console.log('Image URL: ' + resp.image.url);
+  console.log('Profile URL: ' + resp.url);
+});
+
 }
   /**
    * Response callback for when the API client receives a response.
