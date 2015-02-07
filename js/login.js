@@ -2,6 +2,7 @@
    * Handler for the signin callback triggered after the user selects an account.
    */
 function signinCallback(resp) {
+	var access_token = resp['access_token'];
 	/*
   gapi.client.load('plus', 'v1', apiClientLoaded);
   if (resp['status']['signed_in']) {
@@ -29,7 +30,7 @@ gapi.client.load('plus', 'v1', function() {
 
 	if(localStorage.getItem("accessToken") != null && localStorage.getItem("accessToken") != ""){
 		
-		localStorage.setItem("accessToken", accessToken);
+		localStorage.setItem("accessToken", access_token);
 		localStorage.setItem("email", email);
 		
 		
