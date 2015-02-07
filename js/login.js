@@ -12,7 +12,7 @@ function signinCallback(resp) {
     window.open("main.html", "_self");
   }
   */
-  gapi.client.load('plus', 'v1', apiClientLoaded);
+ //gapi.client.load('plus', 'v1', apiClientLoaded);
  gapi.client.load('oauth2', 'v2', function() {
   gapi.client.oauth2.userinfo.get().execute(function(resp) {
     // Shows user email
@@ -29,6 +29,7 @@ gapi.client.load('plus', 'v1', function() {
   });
 });
 
+/*
   if (resp['status']['signed_in']) {
     var access_token = resp['access_token'];
     console.log(access_token);
@@ -37,7 +38,7 @@ gapi.client.load('plus', 'v1', function() {
     // go to main.html
     window.open("main.html", "_self");
   }
-
+*/
 }
 
 function getAccessToken() {
