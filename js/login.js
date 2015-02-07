@@ -26,7 +26,10 @@ function getAccessToken() {
     	userId: 'me'
     	}).execute(handleEmailResponse);
     	
-    	
+    var request = gapi.client.plus.people.get({
+    	userId: 'me'
+    	});
+	console.log("apiClientLoaded - request : " + JSON.stringify(request));
     	
     
     
@@ -37,10 +40,7 @@ function getAccessToken() {
     	
     console.log("apiClientLoaded - request2 : " + JSON.stringify(request2));
     
-    var request = gapi.client.plus.people.get({
-    	userId: 'me'
-    	});
-	console.log("apiClientLoaded - request : " + JSON.stringify(request));
+
   }
 
   /**
