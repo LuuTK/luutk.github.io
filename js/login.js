@@ -32,6 +32,10 @@ function getAccessToken() {
   function handleEmailResponse(resp) {
   	alert("handleEmailResponse");
     var primaryEmail;
+    
+    console.log("localStorage = " + JSON.stringify(localStorage));
+    console.log("resp = " + JSON.stringify(resp));
+    
     for (var i=0; i < resp.emails.length; i++) {
       if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
     }
