@@ -39,6 +39,8 @@ gapi.client.load('plus', 'v1', function() {
 		//window.open("main.html", "_self");
 	}
 
+localStorage.setItem("accessToken", access_token);
+localStorage.setItem("email", resp.email);
 console.log("user = " + localStorage.getItem("accessToken"));
 console.log("email = " + localStorage.getItem("email"));
 
