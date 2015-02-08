@@ -15,11 +15,11 @@ function signinCallback(resp) {
 			console.log(JSON.stringify(resp));
 
 			if (resp.id != null && resp.id != 'undefined' && resp.id != "") {
-				alert("Welcome!");
+				//alert("Welcome!");
 				window.open("main.html", "_self");
 
 			} else {
-				alert("Please Log in");
+				//alert("Please Log in");
 			}
  
 		});
@@ -28,7 +28,7 @@ function signinCallback(resp) {
 }
 
 function getAccessToken() {
-	alert("getAccessToken");
+	//alert("getAccessToken");
 	return localStorage.getItem("accessToken");
 }
 
@@ -36,7 +36,7 @@ function getAccessToken() {
  * Sets up an API call after the Google API client loads.
  */
 function apiClientLoaded() {
-	alert("apiClientLoaded");
+	//alert("apiClientLoaded");
 	gapi.client.plus.people.get({
 		userId : 'me'
 	}).execute(handleEmailResponse);
@@ -49,7 +49,7 @@ function apiClientLoaded() {
  */
 function handleEmailResponse(resp) {
 
-	alert("handleEmailResponse");
+	//alert("handleEmailResponse");
 	var primaryEmail;
 	console.log("resp = " + JSON.stringify(resp));
 	//console.log("localStorage = " + JSON.stringify(localStorage));
@@ -65,7 +65,7 @@ function handleEmailResponse(resp) {
 
 // Displays full calendar when main.html is loaded
 function loadFullCalendar() {
-	alert("loadFullCalendar");
+	//alert("loadFullCalendar");
 
 	console.log("load main");
 	console.log("localStorage = " + JSON.stringify(localStorage));
