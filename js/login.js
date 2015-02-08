@@ -29,13 +29,15 @@ gapi.client.load('plus', 'v1', function() {
     localStorage.setItem("accessToken", access_token);
     // go to main.html
     window.open("main.html", "_self");
-  	
+  	}
     // Shows other profile information
     console.log(resp);
     console.log("email = " + resp.email);
+    
   });
 });
 }
+
 
 function getAccessToken() {
 	alert("getAccessToken");
