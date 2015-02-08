@@ -18,7 +18,10 @@ function signinCallback(resp) {
  gapi.client.load('oauth2', 'v2', function() {
   gapi.client.oauth2.userinfo.get().execute(function(resp) {
     // Shows user email
-    console.log(resp.email);
+     localStorage.setItem("accessToken", access_token);
+    localStorage.setItem("email", resp.email);
+    localStorage.setItem("id", resp.id);
+    console.log(" email in oauth2 = " + resp.email);
   });
 });
 
