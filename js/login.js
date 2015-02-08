@@ -3,7 +3,7 @@
    */
 function signinCallback(resp) {
 	var access_token = resp['access_token'];
-	/*
+	
   gapi.client.load('plus', 'v1', apiClientLoaded);
   if (resp['status']['signed_in']) {
     var access_token = resp['access_token'];
@@ -12,7 +12,7 @@ function signinCallback(resp) {
     // go to main.html
     window.open("main.html", "_self");
   }
-  */
+  
  
  gapi.client.load('oauth2', 'v2', function() {
   gapi.client.oauth2.userinfo.get().execute(function(resp) {
@@ -58,9 +58,9 @@ function getAccessToken() {
     //console.log("localStorage = " + JSON.stringify(localStorage));
     //console.log("resp = " + JSON.stringify(resp));
     
-    for (var i=0; i < resp.emails.length; i++) {
-      if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
-    }
+    //for (var i=0; i < resp.emails.length; i++) {
+    //  if (resp.emails[i].type === 'account') primaryEmail = resp.emails[i].value;
+    //}
     //localStorage.setItem("email", primaryEmail);
     //console.log("localStorage = " + JSON.stringify(localStorage));
     
