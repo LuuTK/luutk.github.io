@@ -2,70 +2,76 @@
  * Handler for the signin callback triggered after the user selects an account.
  */
 function signinCallback(resp) {
-	
+
 	var test = false;
 	/*
-  gapi.client.load('plus', 'v1', apiClientLoaded);
-  if (resp['status']['signed_in']) {
-    var access_token = resp['access_token'];
-    console.log(access_token);
-    localStorage.setItem("accessToken", access_token);
-    // go to main.html
-    window.open("main.html", "_self");
-  }
-  */
- 
- gapi.client.load('oauth2', 'v2', function() {
-  gapi.client.oauth2.userinfo.get().execute(function(resp) {
-  	var access_token = resp['access_token'];
-    // Shows user email
-    localStorage.setItem("accessToken", access_token);
-    localStorage.setItem("email", resp.email);
-    localStorage.setItem("id", resp.id);
-    console.log(" email in oauth2 = " + resp.email);
-    console.log(JSON.stringify(localStorage));
-  });
-});
+	 gapi.client.load('plus', 'v1', apiClientLoaded);
+	 if (resp['status']['signed_in']) {
+	 var access_token = resp['access_token'];
+	 console.log(access_token);
+	 localStorage.setItem("accessToken", access_token);
+	 // go to main.html
+	 window.open("main.html", "_self");
+	 }
+	 */
 
+	gapi.client.load('oauth2', 'v2', function() {
+		gapi.client.oauth2.userinfo.get().execute(function(resp) {
+			var access_token = resp['access_token'];
+			// Shows user email
+			localStorage.setItem("accessToken", access_token);
+			localStorage.setItem("email", resp.email);
+			localStorage.setItem("id", resp.id);
+			console.log(" email in oauth2 = " + resp.email);
+			console.log(JSON.stringify(localStorage));
+			console.log(JSON.stringify(resp));
 
-/*
-gapi.client.load('plus', 'v1', function() {
-  gapi.client.plus.people.get( {'userId' : 'me'} ).execute(function(resp) {
-  	
- // 	  if (resp['status']['signed_in']) {
-    var access_token = resp['access_token'];
-    
-    localStorage.setItem("accessToken", access_token);
-    localStorage.setItem("email", resp.email);
-    localStorage.setItem("id", resp.id);
-   //localStorage.setItem("id".resp.id);
-    
-    // go to main.html
- //   window.open("main.html", "_self");
- // 	}
-    // Shows other profile information
-    console.log("access token = " + access_token);
-    console.log(resp);
-    console.log("email = " + resp.email);
-    console.log("id = " + resp.id);
-    console.log(JSON.stringify(localStorage));
-    
-    if(resp.id != null && resp.id != 'undefined' && resp.id != "" && test == true){
-    	alert("id exists");
-    	window.open("main.html", "_self");
-    	
-    }else{
-    	alert("id does not exist");
-    }
-    
-    
-    
-  });
-});
+			if (resp.id != null && resp.id != 'undefined' && resp.id != "") {
+				alert("id exists");
+				window.open("main.html", "_self");
 
-*/
+			} else {
+				alert("id does not exist");
+			}
+
+		});
+	});
+
+	/*
+	 gapi.client.load('plus', 'v1', function() {
+	 gapi.client.plus.people.get( {'userId' : 'me'} ).execute(function(resp) {
+
+	 // 	  if (resp['status']['signed_in']) {
+	 var access_token = resp['access_token'];
+
+	 localStorage.setItem("accessToken", access_token);
+	 localStorage.setItem("email", resp.email);
+	 localStorage.setItem("id", resp.id);
+	 //localStorage.setItem("id".resp.id);
+
+	 // go to main.html
+	 //   window.open("main.html", "_self");
+	 // 	}
+	 // Shows other profile information
+	 console.log("access token = " + access_token);
+	 console.log(resp);
+	 console.log("email = " + resp.email);
+	 console.log("id = " + resp.id);
+	 console.log(JSON.stringify(localStorage));
+
+	 if(resp.id != null && resp.id != 'undefined' && resp.id != "" && test == true){
+	 alert("id exists");
+	 window.open("main.html", "_self");
+
+	 }else{
+	 alert("id does not exist");
+	 }
+
+	 });
+	 });
+
+	 */
 }
-
 
 function getAccessToken() {
 	alert("getAccessToken");
