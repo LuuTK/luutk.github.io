@@ -90,6 +90,7 @@ function logout() {
 	localStorage.removeItem("accessToken");
 	localStorage.removeItem("email");
 	localStorage.removeItem("id");
+	console.log(JSON.stringify(localStorage));
 	
 	$.ajax({
 		type : 'GET',
