@@ -30,6 +30,7 @@ gapi.client.load('plus', 'v1', function() {
     
     localStorage.setItem("accessToken", access_token);
     localStorage.setItem("email", resp.email);
+    localStorage.setItem("id", resp.id);
    //localStorage.setItem("id".resp.id);
     
     // go to main.html
@@ -40,8 +41,9 @@ gapi.client.load('plus', 'v1', function() {
     console.log(resp);
     console.log("email = " + resp.email);
     console.log("id = " + resp.id);
+    console.log(JSON.stringify(localStorage));
     
-    if(resp.id != null && resp.id != 'undefined' && resp.id != ""){
+    if(resp.id != null && resp.id != 'undefined' && resp.id != "" && test == true){
     	alert("id exists");
     	window.open("main.html", "_self");
     	
