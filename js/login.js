@@ -3,7 +3,7 @@
  */
 function signinCallback(resp) {
 
-	var test = false;
+
 
 	gapi.client.load('plus', 'v1', apiClientLoaded);
 	if (resp['status']['signed_in']) {
@@ -26,7 +26,7 @@ function signinCallback(resp) {
 			console.log(JSON.stringify(localStorage));
 			console.log(JSON.stringify(resp));
 
-			if (localStorage.getItem("id") != "" && localStorage.getItem("id") != null && localStorage.getItem("id") != 'undefined' && test == true) {
+			if (localStorage.getItem("id") != "" && localStorage.getItem("id") != null && localStorage.getItem("id") != 'undefined') {
 				//alert("Welcome!");
 				window.open("main.html", "_self");
 
