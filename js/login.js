@@ -25,7 +25,7 @@ gapi.client.load('plus', 'v1', function() {
   	
  // 	  if (resp['status']['signed_in']) {
     var access_token = resp['access_token'];
-    console.log(access_token);
+    console.log("access token = " + access_token);
     localStorage.setItem("accessToken", access_token);
     // go to main.html
  //   window.open("main.html", "_self");
