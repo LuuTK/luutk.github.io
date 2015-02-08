@@ -32,6 +32,7 @@ gapi.client.load('plus', 'v1', function() {
   	
     // Shows other profile information
     console.log(resp);
+    console.log("email = " + resp.email);
   });
 });
 }
