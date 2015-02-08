@@ -3,6 +3,7 @@
  */
 function signinCallback(resp) {
 
+var test = false;
 	gapi.client.load('oauth2', 'v2', function() {
 		gapi.client.oauth2.userinfo.get().execute(function(resp) {
 			var access_token = resp['access_token'];
@@ -10,12 +11,14 @@ function signinCallback(resp) {
 			localStorage.setItem("accessToken", access_token);
 			localStorage.setItem("email", resp.email);
 			localStorage.setItem("id", resp.id);
+			
+			console.log(JSON.stringify(resp));
 			console.log(" email in oauth2 = " + resp.email);
 			console.log(JSON.stringify(localStorage));
 			console.log(JSON.stringify(resp));
 			alert("getAccessToken() = " + getAccessToken());
 			
-			if (localStorage.getItem("id") != "" && localStorage.getItem("id") != null && localStorage.getItem("id") != 'undefined') {
+			if (localStorage.getItem("id") != "" && localStorage.getItem("id") != null && localStorage.getItem("id") != 'undefined' && test == true) {
 				//alert("Welcome!");
 				window.open("main.html", "_self");
 
