@@ -7,10 +7,6 @@ function signinCallback(resp) {
   gapi.client.oauth2.userinfo.get().execute(function(resp) {
     // Shows user email
     
-    localStorage.setItem("accessToken", access_token);
-	localStorage.setItem("email", resp.email);
-	alert("resp.email = " + resp.email);
-	alert("accessToken = " + accessToken);
   });
 });
 
