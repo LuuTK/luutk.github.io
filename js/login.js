@@ -60,7 +60,7 @@ function getAccessToken() {
   	
   	alert("handleEmailResponse");
     var primaryEmail;
-    console.log(resp);
+    console.log("resp = " + resp);
     //console.log("localStorage = " + JSON.stringify(localStorage));
     //console.log("resp = " + JSON.stringify(resp));
     
