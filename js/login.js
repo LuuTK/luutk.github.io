@@ -86,7 +86,7 @@ function loadFullCalendar() {
 function logout() {
 	var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' + getAccessToken();
 	// Perform an asynchronous GET request.
-	
+	alert("logging out");
 	localStorage.removeItem("accessToken");
 	localStorage.removeItem("email");
 	localStorage.removeItem("id");
