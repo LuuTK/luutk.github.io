@@ -2,7 +2,6 @@
    * Handler for the signin callback triggered after the user selects an account.
    */
 function signinCallback(resp) {
-	var access_token = resp['access_token'];
 	
   gapi.client.load('plus', 'v1', apiClientLoaded);
   if (resp['status']['signed_in']) {
