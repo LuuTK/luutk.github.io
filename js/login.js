@@ -6,8 +6,10 @@ function signinCallback(resp) {
   gapi.client.load('plus', 'v1', apiClientLoaded);
   if (resp['status']['signed_in']) {
     var access_token = resp['access_token'];
+    var email = resp['email'];
     console.log(access_token);
     localStorage.setItem("accessToken", access_token);
+     localStorage.setItem("email", email);
     // go to main.html
     window.open("main.html", "_self");
   }
