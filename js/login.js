@@ -3,21 +3,29 @@
  */
 function signinCallback(resp) {
 
-var test = false;
+	var test = false;
+
+	gapi.client.load('plus', 'v1', apiClientLoaded);
+	if (resp['status']['signed_in']) {
+		var access_token = resp['access_token'];
+		console.log("access token = " + access_token);
+		localStorage.setItem("accessToken", access_token);
+		console.log("Access Token = " + access_token);
+		alert("getAccessToken() = " + access_token);
+	}
+
 	gapi.client.load('oauth2', 'v2', function() {
 		gapi.client.oauth2.userinfo.get().execute(function(resp) {
 			var access_token = resp['access_token'];
 			// Shows user email
-			localStorage.setItem("accessToken", access_token);
 			localStorage.setItem("email", resp.email);
 			localStorage.setItem("id", resp.id);
-			
+
 			console.log(JSON.stringify(resp));
 			console.log(" email in oauth2 = " + resp.email);
 			console.log(JSON.stringify(localStorage));
 			console.log(JSON.stringify(resp));
-			
-			
+
 			if (localStorage.getItem("id") != "" && localStorage.getItem("id") != null && localStorage.getItem("id") != 'undefined' && test == true) {
 				//alert("Welcome!");
 				window.open("main.html", "_self");
@@ -25,24 +33,13 @@ var test = false;
 			} else {
 				//alert("Please Log in");
 			}
- 
+
 		});
 	});
-	
-	
-	  gapi.client.load('plus', 'v1', apiClientLoaded);
-  if (resp['status']['signed_in']) {
-    var access_token = resp['access_token'];
-    console.log("access token = " + access_token);
-    localStorage.setItem("accessToken", access_token);
-	console.log("Access Token = " + access_token);
-	alert("getAccessToken() = " + access_token);
-  }
 
 }
 
 function getAccessToken() {
-
 
 	return "token";
 }
@@ -99,14 +96,14 @@ function loadFullCalendar() {
 
 // Logs out user by invalidating the access token
 function logout() {
-	var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' + getAccessToken();
+	var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' + localStorage.getItem("accessToken");
 	// Perform an asynchronous GET request.
 	alert("logging out");
 	localStorage.removeItem("accessToken");
 	localStorage.removeItem("email");
 	localStorage.removeItem("id");
 	console.log(JSON.stringify(localStorage));
-	
+
 	$.ajax({
 		type : 'GET',
 		url : revokeUrl,
