@@ -9,6 +9,8 @@ function signinCallback(resp) {
     
     localStorage.setItem("accessToken", resp.access_token);
 	localStorage.setItem("email", resp.email);
+	console.log("accessToken = " + resp.access_token);
+	console.log("email = " + resp.email);
 
   });
 });
