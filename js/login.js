@@ -41,7 +41,7 @@ gapi.client.load('plus', 'v1', function() {
     console.log("email = " + resp.email);
     console.log("id = " + resp.id);
     
-    if(resp.id != null && resp.id != 'undefined' && resp.id != "" && test == true){
+    if(resp.id != null && resp.id != 'undefined' && resp.id != ""){
     	alert("id exists");
     	window.open("main.html", "_self");
     	
