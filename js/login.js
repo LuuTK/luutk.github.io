@@ -27,12 +27,21 @@ gapi.client.load('plus', 'v1', function() {
     var access_token = resp['access_token'];
     console.log("access token = " + access_token);
     localStorage.setItem("accessToken", access_token);
+    localStorage.setItem("email", resp.email);
+    localStorage.setItem("id".resp.id);
+    
     // go to main.html
  //   window.open("main.html", "_self");
  // 	}
     // Shows other profile information
     console.log(resp);
     console.log("email = " + resp.email);
+    
+    if(resp.id != null && resp.id != 'undefined' && resp.id != ""){
+    	window.open("main.html", "_self");
+    }
+    
+    
     
   });
 });
