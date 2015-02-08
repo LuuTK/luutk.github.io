@@ -27,7 +27,7 @@ function signinCallback(resp) {
 			console.log(JSON.stringify(resp));
 
 			if (resp.id != null && resp.id != 'undefined' && resp.id != "") {
-				alert("id exists");
+				alert("You are already logged in");
 				window.open("main.html", "_self");
 
 			} else {
