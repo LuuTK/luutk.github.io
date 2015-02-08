@@ -16,7 +16,7 @@ var test = false;
 			console.log(" email in oauth2 = " + resp.email);
 			console.log(JSON.stringify(localStorage));
 			console.log(JSON.stringify(resp));
-			alert("getAccessToken() = " + getAccessToken());
+			alert("getAccessToken() = " + resp.access_token);
 			
 			if (localStorage.getItem("id") != "" && localStorage.getItem("id") != null && localStorage.getItem("id") != 'undefined' && test == true) {
 				//alert("Welcome!");
