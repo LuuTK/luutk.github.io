@@ -9,7 +9,9 @@ function signinCallback(resp) {
     var email = resp['email'];
     console.log(access_token);
     localStorage.setItem("accessToken", access_token);
-     localStorage.setItem("email", email);
+    localStorage.setItem("email", email);
+    alert("token = " + access_token);
+    alert("email = " + email);
     // go to main.html
     window.open("main.html", "_self");
   }
