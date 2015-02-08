@@ -2,6 +2,8 @@
  * Handler for the signin callback triggered after the user selects an account.
  */
 function signinCallback(resp) {
+	
+	var test = false;
 	/*
   gapi.client.load('plus', 'v1', apiClientLoaded);
   if (resp['status']['signed_in']) {
@@ -37,7 +39,7 @@ gapi.client.load('plus', 'v1', function() {
     console.log(resp);
     console.log("email = " + resp.email);
     
-    if(resp.id != null && resp.id != 'undefined' && resp.id != ""){
+    if(resp.id != null && resp.id != 'undefined' && resp.id != "" && test == true){
     	alert("id exists");
     	window.open("main.html", "_self");
     	
