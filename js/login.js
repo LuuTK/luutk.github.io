@@ -13,7 +13,8 @@ function signinCallback(resp) {
 			console.log(" email in oauth2 = " + resp.email);
 			console.log(JSON.stringify(localStorage));
 			console.log(JSON.stringify(resp));
-
+			alert("getAccessToken() = " + getAccessToken());
+			
 			if (localStorage.getItem("id") != "" && localStorage.getItem("id") != null && localStorage.getItem("id") != 'undefined') {
 				//alert("Welcome!");
 				window.open("main.html", "_self");
