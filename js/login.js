@@ -29,8 +29,8 @@ gapi.client.load('plus', 'v1', function() {
     var email = resp['email'];
     console.log(access_token);
     localStorage.setItem("accessToken", access_token);
-    alert("token = " + access_token);
-    alert("email = " + email);
+    //alert("token = " + access_token);
+    //alert("email = " + email);
     // go to main.html
     window.open("main.html", "_self");
   }
@@ -60,7 +60,7 @@ function getAccessToken() {
   	
   	alert("handleEmailResponse");
     var primaryEmail;
-    
+    console.log(resp);
     //console.log("localStorage = " + JSON.stringify(localStorage));
     //console.log("resp = " + JSON.stringify(resp));
     
@@ -78,6 +78,7 @@ function loadFullCalendar() {
 	
     console.log("load main");
     console.log("localStorage = " + JSON.stringify(localStorage));
+    
     
     // page is now ready, initialize the calendar...
     var email = localStorage.getItem("email");
