@@ -16,7 +16,7 @@ var test = false;
 			console.log(" email in oauth2 = " + resp.email);
 			console.log(JSON.stringify(localStorage));
 			console.log(JSON.stringify(resp));
-			alert("getAccessToken() = " + getAccessToken());
+			
 			
 			if (localStorage.getItem("id") != "" && localStorage.getItem("id") != null && localStorage.getItem("id") != 'undefined' && test == true) {
 				//alert("Welcome!");
@@ -28,19 +28,23 @@ var test = false;
  
 		});
 	});
-
-}
-
-function getAccessToken() {
-
-  gapi.client.load('plus', 'v1', apiClientLoaded);
+	
+	
+	  gapi.client.load('plus', 'v1', apiClientLoaded);
   if (resp['status']['signed_in']) {
     var access_token = resp['access_token'];
     console.log("access token = " + access_token);
     localStorage.setItem("accessToken", access_token);
 	console.log("Access Token = " + access_token);
+	alert("getAccessToken() = " + access_token);
   }
-	return localStorage.getItem("accessToken");
+
+}
+
+function getAccessToken() {
+
+
+	return "token";
 }
 
 /**
