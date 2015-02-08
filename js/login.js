@@ -27,7 +27,7 @@ gapi.client.load('plus', 'v1', function() {
   	
  // 	  if (resp['status']['signed_in']) {
     var access_token = resp['access_token'];
-    console.log("access token = " + access_token);
+    
     localStorage.setItem("accessToken", access_token);
     localStorage.setItem("email", resp.email);
    //localStorage.setItem("id".resp.id);
@@ -36,8 +36,10 @@ gapi.client.load('plus', 'v1', function() {
  //   window.open("main.html", "_self");
  // 	}
     // Shows other profile information
+    console.log("access token = " + access_token);
     console.log(resp);
     console.log("email = " + resp.email);
+    console.log("id = " + resp.id);
     
     if(resp.id != null && resp.id != 'undefined' && resp.id != "" && test == true){
     	alert("id exists");
