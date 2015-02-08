@@ -28,7 +28,7 @@ gapi.client.load('plus', 'v1', function() {
     console.log(access_token);
     localStorage.setItem("accessToken", access_token);
     // go to main.html
-    window.open("main.html", "_self");
+ //   window.open("main.html", "_self");
  // 	}
     // Shows other profile information
     console.log(resp);
