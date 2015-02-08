@@ -13,7 +13,7 @@ function signinCallback(resp) {
     window.open("main.html", "_self");
   }
   
- 
+ /*
  gapi.client.load('oauth2', 'v2', function() {
   gapi.client.oauth2.userinfo.get().execute(function(resp) {
     // Shows user email
@@ -31,7 +31,7 @@ gapi.client.load('plus', 'v1', function() {
     console.log(resp);
   });
 });
-
+*/
 }
 function getAccessToken() {
 	alert("getAccessToken");
