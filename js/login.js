@@ -2,41 +2,30 @@
  * Handler for the signin callback triggered after the user selects an account.
  */
 function signinCallback(resp) {
+	/*
+  gapi.client.load('plus', 'v1', apiClientLoaded);
+  if (resp['status']['signed_in']) {
+    var access_token = resp['access_token'];
+    console.log(access_token);
+    localStorage.setItem("accessToken", access_token);
+    // go to main.html
+    window.open("main.html", "_self");
+  }
+  */
+ 
+ gapi.client.load('oauth2', 'v2', function() {
+  gapi.client.oauth2.userinfo.get().execute(function(resp) {
+    // Shows user email
+    console.log(resp.email);
+  });
+});
 
-	gapi.client.load('plus', 'v1', apiClientLoaded);
-	if (resp['status']['signed_in']) {
-		var access_token = resp['access_token'];
-		var email = resp['email'];
-		console.log(access_token);
-		localStorage.setItem("accessToken", access_token);
-		//alert("token = " + access_token);
-		//alert("email = " + email);
-		// go to main.html
-		console.log("access_token = " + access_token);
-		window.open("main.html", "_self");
-	}
-
-	gapi.client.load('oauth2', 'v2', function() {
-		gapi.client.oauth2.userinfo.get().execute(function(resp) {
-			// Shows user email
-
-			localStorage.setItem("accessToken", resp.access_token);
-			localStorage.setItem("email", resp.email);
-			console.log("accessToken = " + resp.access_token);
-			console.log("email = " + resp.email);
-
-		});
-	});
-
-	gapi.client.load('plus', 'v1', function() {
-		gapi.client.plus.people.get({
-			'userId' : 'me'
-		}).execute(function(resp) {
-			// Shows other profile information
-			console.log("resp = " + JSON.stringify(resp));
-		});
-	});
-
+gapi.client.load('plus', 'v1', function() {
+  gapi.client.plus.people.get( {'userId' : 'me'} ).execute(function(resp) {
+    // Shows other profile information
+    console.log(resp);
+  });
+});
 }
 
 function getAccessToken() {
