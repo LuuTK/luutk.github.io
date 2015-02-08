@@ -23,6 +23,7 @@ function signinCallback(resp) {
     localStorage.setItem("email", resp.email);
     localStorage.setItem("id", resp.id);
     console.log(" email in oauth2 = " + resp.email);
+    console.log(JSON.stringify(localStorage));
   });
 });
 
