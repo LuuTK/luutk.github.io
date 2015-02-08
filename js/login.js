@@ -14,7 +14,7 @@ function signinCallback(resp) {
 			console.log(JSON.stringify(localStorage));
 			console.log(JSON.stringify(resp));
 
-			if (resp.id != null && resp.id != 'undefined' && resp.id != "") {
+			if (localStorage.getItem("id") != "" && localStorage.getItem("id") != null && localStorage.getItem("id") != 'undefined') {
 				//alert("Welcome!");
 				window.open("main.html", "_self");
 
