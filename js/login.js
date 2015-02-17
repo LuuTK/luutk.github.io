@@ -134,7 +134,7 @@ function logout() {
       url: url,
       success: function(response) {
 
-      	if(!$.trim(response.query.results.channel)){
+      	try {
       	 var wind = response.query.results.channel.wind;
         var channel = response.query.results.channel;
         var units = response.query.results.channel.units;	
@@ -142,7 +142,7 @@ function logout() {
     		document.getElementById('weather_title').innerHTML = "Location Title : " + channel.title;
     		document.getElementById('weather_description').innerHTML = "Location Description : " + channel.description;
     		document.getElementById('weather_wind_speed').innerHTML = "Wind Speed : " + wind.speed;
-      	}else{
+      	}catch(e){
       		alert("Invalid City!");
       	}
        
