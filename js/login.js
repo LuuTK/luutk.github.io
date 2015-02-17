@@ -134,7 +134,7 @@ function logout() {
       url: url,
       success: function(response) {
 
-      	if(response.query.results.channel.wind == 'undefined'){
+      	if(response.query.results.channel.wind == undefined){
       	 var wind = response.query.results.channel.wind;
         var channel = response.query.results.channel;
         var units = response.query.results.channel.units;	
