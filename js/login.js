@@ -134,7 +134,7 @@ function logout() {
       url: url,
       success: function(response) {
 
-      	if(response.query.results.channel.wind != null && response.query.results.channel != null && response.query.results.channel.units != null){
+      	if(response.query.results.channel.wind != null && response.query.results.channel.units != null){
       	 var wind = response.query.results.channel.wind;
         var channel = response.query.results.channel;
         var units = response.query.results.channel.units;	
