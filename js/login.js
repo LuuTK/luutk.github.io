@@ -11,7 +11,7 @@ function signinCallback(resp) {
 		console.log("access token = " + access_token);
 		localStorage.setItem("accessToken", access_token);
 		console.log("Access Token = " + access_token);
-		alert("getAccessToken() = " + access_token);
+		//alert("getAccessToken() = " + access_token);
 	}
 
 	gapi.client.load('oauth2', 'v2', function() {
@@ -122,10 +122,12 @@ function logout() {
 
 
  function getWeather() {
+ 	var input_location = document.getElementById("myText").value;
     var url1 = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22"
-    var url2 = "tokyo";
+    var url2 = input_location;
     var url3 = "%2C%20ak%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
     var url = url1+url2+url3;
+    alert(url2);
 
     $.ajax({
       dataType: "json",
