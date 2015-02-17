@@ -134,7 +134,7 @@ function logout() {
       url: url,
       success: function(response) {
 
-      	if(!$.trim(data)){
+      	if(!$.trim(response.query.results.channel)){
       	 var wind = response.query.results.channel.wind;
         var channel = response.query.results.channel;
         var units = response.query.results.channel.units;	
