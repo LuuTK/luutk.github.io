@@ -14,14 +14,7 @@
 		<script type='text/javascript' src='fullcalendar/gcal.js'></script>
 
 		<!-- Weather Script -->
-		<script>
-  		var yqlCallback = function(data) {
-   		var wind = data.query.results.channel.wind;
-   		 alert(wind.chill);
-  			};
-		</script>
 
-		<script src="https://query.yahooapis.com/v1/public/yql?q=select wind from weather.forecast where woeid in (select woeid from geo.places(1) where text='chicago, il')&format=json&callback=yqlCallback"></script>
 	<!-- end weather script -->
 
 
@@ -50,6 +43,8 @@
 
 		<!-- WEATHER PART -->
 			<div id="weather_widget">user@gmail.com</div>
+			<p>Enter Location for weather!</p>
+			<input type="text" name="weather_location">
 			<button onclick="getWeather()">Weather!</button>
 		</div>
 
