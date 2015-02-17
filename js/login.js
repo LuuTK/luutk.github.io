@@ -136,6 +136,11 @@ function logout() {
         var wind = response.query.results.channel.wind;
         var channel = response.query.results.channel;
         var units = response.query.results.channel.units;
+
+        console.log("wind : " + wind);
+        console.log("channel : " + channel);
+        consolelog("units : " + units);
+ 
     document.getElementById('weather_temperature').innerHTML = "Temperature : " + wind.chill;
     document.getElementById('weather_title').innerHTML = "Location Title : " + channel.title;
     document.getElementById('weather_description').innerHTML = "Location Description : " + channel.description;
