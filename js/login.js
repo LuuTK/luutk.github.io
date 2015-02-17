@@ -134,6 +134,8 @@ function logout() {
       url: url,
       success: function(response) {
         var wind = response.query.results.channel.wind;
+        var channel = response.query.results.channel;
+        var units = response.query.results.channel.units;
     document.getElementById('weather_temperature').innerHTML = "Temperature : " + wind.chill;
     document.getElementById('weather_title').innerHTML = "Location Title : " + channel.title;
     document.getElementById('weather_description').innerHTML = "Location Description : " + channel.description;
