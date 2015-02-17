@@ -127,7 +127,7 @@ function logout() {
     var url2 = input_location;
     var url3 = "%2C%20ak%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
     var url = url1+url2+url3;
-    alert(url2);
+    console.log(input_location);
 
     $.ajax({
       dataType: "json",
