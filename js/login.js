@@ -139,7 +139,7 @@ function logout() {
 
         console.log("wind : " + wind);
         console.log("channel : " + channel);
-        consolelog("units : " + units);
+        console.log("units : " + units);
  
     document.getElementById('weather_temperature').innerHTML = "Temperature : " + wind.chill;
     document.getElementById('weather_title').innerHTML = "Location Title : " + channel.title;
