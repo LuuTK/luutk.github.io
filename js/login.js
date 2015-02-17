@@ -135,7 +135,7 @@ function logout() {
       success: function(response) {
         var wind = response.query.results.channel.wind;
         alert(wind.chill);
-    document.getElementById('weather_widget').innerHTML = wind.chill;
+    document.getElementById('weather_temperature').innerHTML = "Temperature : " + wind.chill;
       }
     });
 }
