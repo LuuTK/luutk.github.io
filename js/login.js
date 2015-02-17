@@ -138,6 +138,8 @@ function logout() {
         var wind = response.query.results.channel.wind;
         var channel = response.query.results.channel;
         var units = response.query.results.channel.units;
+        console.log("Fah : " + wind.chill);
+        console.log("Celcius : "  + farenheitToCelcius(wind.chill));
         document.getElementById('weather_temperature').innerHTML = "Temperature : " + farenheitToCelcius(wind.chill);
         document.getElementById('weather_title').innerHTML = "Location Title : " + channel.title;
         document.getElementById('weather_description').innerHTML = "Location Description : " + channel.description;
