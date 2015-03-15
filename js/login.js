@@ -659,6 +659,7 @@ function getWeather(){
         //document.getElementById('weather_temperature').innerHTML = "time = " + timeFromGeo;
         }catch(error){
             alert('City Not Found :(');
+            alert(error);
         }
 
       }
