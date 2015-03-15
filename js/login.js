@@ -640,19 +640,18 @@ function getWeather(){
       success: function(response) {
 
         try{
+
+
         var latitude = response.results[0].geometry.location.lat;
         var longitude = esponse.results[0].geometry.location.lng;
-        var timeFromGeo =  getTimeFromGeoLocation(latitude, longitude);
+        //var timeFromGeo =  getTimeFromGeoLocation(latitude, longitude);
 
         console.log(response);
         console.log("latitude = " + latitude);
         console.log("longitude = " + longitude);
 
 
-
-
-
-        document.getElementById('weather_temperature').innerHTML = "time = " + timeFromGeo;
+        //document.getElementById('weather_temperature').innerHTML = "time = " + timeFromGeo;
         }catch(error){
             alert('City Not Found :(');
         }
