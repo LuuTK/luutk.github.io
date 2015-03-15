@@ -656,7 +656,7 @@ function getWeather(){
         //console.log("longitude = " + longitude);
 
 
-        document.getElementById('weather_temperature').innerHTML = "time = " + timeFromGeo;
+        //document.getElementById('weather_temperature').innerHTML = "time = " + timeFromGeo;
         }catch(error){
             alert('City Not Found :(');
             alert(error);
@@ -682,6 +682,8 @@ var timeFromGeo = "";
 
         console.log("GEONAMES  response = " + response.time);
         timeFromGeo = response.time;
+        document.getElementById('weather_temperature').innerHTML = "time = " + timeFromGeo;
+
         return timeFromGeo;
         }catch(error){
             alert('Time Not Found :(');
