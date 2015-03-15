@@ -646,17 +646,17 @@ function getWeather(){
 
 
         latitude = response.results[0].geometry.location.lat;
-        longitude = esponse.results[0].geometry.location.lng;
-        //timeFromGeo =  getTimeFromGeoLocation(latitude, longitude);
+        longitude = response.results[0].geometry.location.lng;
+        timeFromGeo =  getTimeFromGeoLocation(latitude, longitude);
 
-        console.log(response.results[0].geometry.location.lat);
+        //console.log(response.results[0].geometry.location.lat);
         console.log(response);
         console.log(latitude);
         //console.log("latitude = " + latitude);
         //console.log("longitude = " + longitude);
 
 
-        //document.getElementById('weather_temperature').innerHTML = "time = " + timeFromGeo;
+        document.getElementById('weather_temperature').innerHTML = "time = " + timeFromGeo;
         }catch(error){
             alert('City Not Found :(');
             alert(error);
