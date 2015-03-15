@@ -640,12 +640,19 @@ function getWeather(){
       success: function(response) {
 
         try{
+        var latitude = response.results[0].geometry.location.lat;
+        var longitude = esponse.results[0].geometry.location.lng;
+        var timeFromGeo =  getTimeFromGeoLocation(latitude, longitude);
 
-        document.getElementById('weather_temperature').innerHTML = "City : " + " Hello!";
         console.log(response);
-        console.log("latitude = " + response.results[0].geometry.location.lat);
-        console.log("longitude = " + response.results[0].geometry.location.lng);
-        getTimeFromGeoLocation(response.results[0].geometry.location.lat, response.results[0].geometry.location.lng);
+        console.log("latitude = " + latitude);
+        console.log("longitude = " + longitude);
+
+
+
+
+
+        document.getElementById('weather_temperature').innerHTML = "time = " + timeFromGeo;
         }catch(error){
             alert('City Not Found :(');
         }
@@ -658,7 +665,7 @@ function getWeather(){
 function getTimeFromGeoLocation(latitude, longitude){
 
  //http://api.geonames.org/timezone?lat=45.5016889&lng=-73.567256&username=demo
-
+var timeFromGeo = "";
    // var url = "http://api.geonames.org/timezone?lat=45.5016889&lng=-73.567256&username=demo";
     var url = "http://api.geonames.org/timezoneJSON?lat=" + latitude + "&lng=" + longitude + "&username=demo";
     $.ajax({
@@ -670,13 +677,14 @@ function getTimeFromGeoLocation(latitude, longitude){
 
         document.getElementById('weather_temperature').innerHTML = "City : " + " Hello!";
         console.log("GEONAMES  response = " + response.time);
+        timeFromGeo = response.time;
         }catch(error){
             alert('City Not Found :(');
         }
 
       }
     });
-
+    return timeFromGeo;
 }
 
 function farenheitToCelcius(value){
