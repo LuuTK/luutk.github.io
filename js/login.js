@@ -630,7 +630,7 @@ function logout() {
 //testing
 function getWeather(){
     //https://maps.googleapis.com/maps/api/geocode/json?address=Winnetka&key=API_KEY
-    var apiKey = "AIzaSyBpR0D25YSWU0cb3kg7zoAimFQwG3uE1tY";
+    var apiKey = "AIzaSyAAxypsNYuwjy_Mc2uqEngbMxAPVO9A12M";
     var cityName = "";
     var url = "https://maps.googleapis.com/maps/api/geocode/json?address=Winnetka&key=" + apiKey;
 
