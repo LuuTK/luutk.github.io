@@ -634,6 +634,9 @@ function getWeather(){
     var cityName = "montreal";
     var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cityName + "&key=" + apiKey;
     var latitude = "";
+    var longitude = "";
+    var timeFromGeo = "";
+
     $.ajax({
       dataType: "json",
       url: url,
@@ -643,8 +646,9 @@ function getWeather(){
 
 
         latitude = response.results[0].geometry.location.lat;
-        //var longitude = esponse.results[0].geometry.location.lng;
-        //var timeFromGeo =  getTimeFromGeoLocation(latitude, longitude);
+        longitude = esponse.results[0].geometry.location.lng;
+        timeFromGeo =  getTimeFromGeoLocation(latitude, longitude);
+
         console.log(response.results[0].geometry.location.lat);
         console.log(response);
         console.log(latitude);
@@ -652,7 +656,7 @@ function getWeather(){
         //console.log("longitude = " + longitude);
 
 
-        //document.getElementById('weather_temperature').innerHTML = "time = " + timeFromGeo;
+        document.getElementById('weather_temperature').innerHTML = "time = " + timeFromGeo;
         }catch(error){
             alert('City Not Found :(');
         }
