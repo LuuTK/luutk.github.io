@@ -645,6 +645,31 @@ function getWeather(){
         console.log(response);
         console.log("latitude = " + response.results[0].geometry.location.lat);
         console.log("longitude = " + response.results[0].geometry.location.lng);
+        getTimeFromGeoLocation(response.results[0].geometry.location.lat, response.results[0].geometry.location.lng);
+        }catch(error){
+            alert('City Not Found :(');
+        }
+
+      }
+    });
+
+}
+
+function getTimeFromGeoLocation(latitude, longitude){
+
+ //http://api.geonames.org/timezone?lat=45.5016889&lng=-73.567256&username=demo
+
+    var url = "http://api.geonames.org/timezone?lat=45.5016889&lng=-73.567256&username=demo";
+
+    $.ajax({
+      dataType: "json",
+      url: url,
+      success: function(response) {
+
+        try{
+
+        document.getElementById('weather_temperature').innerHTML = "City : " + " Hello!";
+        console.log("GEONAMES  response = " + response);
         }catch(error){
             alert('City Not Found :(');
         }
