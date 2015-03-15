@@ -633,7 +633,7 @@ function getWeather(){
     var apiKey = "AIzaSyAAxypsNYuwjy_Mc2uqEngbMxAPVO9A12M";
     var cityName = "montreal";
     var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cityName + "&key=" + apiKey;
-
+    var latitude = "";
     $.ajax({
       dataType: "json",
       url: url,
@@ -642,7 +642,7 @@ function getWeather(){
         try{
 
 
-        //var latitude = response.results[0].geometry.location.lat;
+        latitude = response.results[0].geometry.location.lat;
         //var longitude = esponse.results[0].geometry.location.lng;
         //var timeFromGeo =  getTimeFromGeoLocation(latitude, longitude);
         console.log(response.results[0].geometry.location.lat);
