@@ -680,7 +680,6 @@ var timeFromGeo = "";
 
         try{
 
-        document.getElementById('weather_temperature').innerHTML = "City : " + " Hello!";
         console.log("GEONAMES  response = " + response.time);
         timeFromGeo = response.time;
         }catch(error){
