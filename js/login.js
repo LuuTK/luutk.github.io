@@ -678,7 +678,7 @@ var timeFromGeo = "";
         console.log("GEONAMES  response = " + response.time);
         timeFromGeo = response.time;
         }catch(error){
-            alert('City Not Found :(');
+            alert('Time Not Found :(');
         }
 
       }
