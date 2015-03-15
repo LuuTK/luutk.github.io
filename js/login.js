@@ -642,13 +642,13 @@ function getWeather(){
         try{
 
 
-        var latitude = response.results[0].geometry.location.lat;
-        var longitude = esponse.results[0].geometry.location.lng;
+        //var latitude = response.results[0].geometry.location.lat;
+        //var longitude = esponse.results[0].geometry.location.lng;
         //var timeFromGeo =  getTimeFromGeoLocation(latitude, longitude);
-
+        console.log(response.results[0].geometry.location.lat);
         console.log(response);
-        console.log("latitude = " + latitude);
-        console.log("longitude = " + longitude);
+        //console.log("latitude = " + latitude);
+        //console.log("longitude = " + longitude);
 
 
         //document.getElementById('weather_temperature').innerHTML = "time = " + timeFromGeo;
