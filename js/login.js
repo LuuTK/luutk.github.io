@@ -599,34 +599,34 @@ function logout() {
 	});
 }
 
- //function getWeather() {
-    var input_location = document.getElementById("weather_location").value;
-    var url1 = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22"
-    var url2 = input_location;
-    var url3 = "%2C%20ak%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
-    var url = url1+url2+url3;
-    console.log(input_location);
+//  function getWeather() {
+//     var input_location = document.getElementById("weather_location").value;
+//     var url1 = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22"
+//     var url2 = input_location;
+//     var url3 = "%2C%20ak%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+//     var url = url1+url2+url3;
+//     console.log(input_location);
 
-    $.ajax({
-      dataType: "json",
-      url: url,
-      success: function(response) {
+//     $.ajax({
+//       dataType: "json",
+//       url: url,
+//       success: function(response) {
 
-        try{
-        var wind = response.query.results.channel.wind;
-        var channel = response.query.results.channel;
-        var units = response.query.results.channel.units;
-        document.getElementById('weather_temperature').innerHTML = "Temperature : " + farenheitToCelcius(wind.chill) + " Celcius";
-        document.getElementById('weather_title').innerHTML = "Location Title : " + channel.title;
-        document.getElementById('weather_description').innerHTML = "Location Description : " + channel.description;
-        document.getElementById('weather_wind_speed').innerHTML = "Wind Speed : " + parseFloat(wind.speed*0.6213711920).toFixed(2) + " km/h";
-        }catch(error){
-            alert('City Not Found :(');
-        }
+//         try{
+//         var wind = response.query.results.channel.wind;
+//         var channel = response.query.results.channel;
+//         var units = response.query.results.channel.units;
+//         document.getElementById('weather_temperature').innerHTML = "Temperature : " + farenheitToCelcius(wind.chill) + " Celcius";
+//         document.getElementById('weather_title').innerHTML = "Location Title : " + channel.title;
+//         document.getElementById('weather_description').innerHTML = "Location Description : " + channel.description;
+//         document.getElementById('weather_wind_speed').innerHTML = "Wind Speed : " + parseFloat(wind.speed*0.6213711920).toFixed(2) + " km/h";
+//         }catch(error){
+//             alert('City Not Found :(');
+//         }
 
-      }
-    });
-}
+//       }
+//     });
+// }
 //testing
 function getWeather(){
     //https://maps.googleapis.com/maps/api/geocode/json?address=Winnetka&key=API_KEY
