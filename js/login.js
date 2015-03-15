@@ -643,6 +643,8 @@ function getWeather(){
 
         document.getElementById('weather_temperature').innerHTML = "City : " + " Hello!";
         console.log(response);
+            console.log(response.results);
+
         }catch(error){
             alert('City Not Found :(');
         }
@@ -650,7 +652,6 @@ function getWeather(){
       }
     });
 
-    console.log(response.results);
 }
 
 function farenheitToCelcius(value){
