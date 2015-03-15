@@ -681,13 +681,9 @@ var timeFromGeo = "";
         try{
 
         console.log("GEONAMES  response = " + response.time);
-        timeFromGeo = response.time;
-        document.getElementById('weather_temperature').innerHTML = "time = " + response.time;
 
-        return timeFromGeo;
         }catch(error){
             alert('Time Not Found :(');
-                return "error!";
         }
 
       }
