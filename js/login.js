@@ -679,9 +679,9 @@ var timeFromGeo = "";
       success: function(response) {
 
         try{
-
-        console.log("GEONAMES  response = " + response.time);
-
+        var timeFound = response.time;
+        console.log("GEONAMES  response = " + timeFound);
+        document.getElementById('weather_temperature').innerHTML = "time = " + timeFound;
         }catch(error){
             alert('Time Not Found :(');
         }
