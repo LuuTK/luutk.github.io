@@ -669,7 +669,7 @@ function getTimeFromGeoLocation(latitude, longitude){
         try{
 
         document.getElementById('weather_temperature').innerHTML = "City : " + " Hello!";
-        console.log("GEONAMES  response = " + response);
+        console.log("GEONAMES  response = " + response.time);
         }catch(error){
             alert('City Not Found :(');
         }
