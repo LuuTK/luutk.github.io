@@ -647,6 +647,7 @@ function getWeather(){
         //var timeFromGeo =  getTimeFromGeoLocation(latitude, longitude);
         console.log(response.results[0].geometry.location.lat);
         console.log(response);
+        console.log(latitude);
         //console.log("latitude = " + latitude);
         //console.log("longitude = " + longitude);
 
