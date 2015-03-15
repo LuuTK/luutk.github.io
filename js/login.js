@@ -656,7 +656,7 @@ function getWeather(){
         //console.log("longitude = " + longitude);
 
 
-        document.getElementById('weather_temperature').innerHTML = "time = " + timeFromGeo;
+        //document.getElementById('weather_temperature').innerHTML = "time = " + timeFromGeo;
         }catch(error){
             alert('City Not Found :(');
         }
