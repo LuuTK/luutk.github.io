@@ -682,13 +682,14 @@ var timeFromGeo = "";
 
         console.log("GEONAMES  response = " + response.time);
         timeFromGeo = response.time;
+        return timeFromGeo;
         }catch(error){
             alert('Time Not Found :(');
+                return "error!";
         }
 
       }
     });
-    return timeFromGeo;
 }
 
 function farenheitToCelcius(value){
