@@ -643,9 +643,8 @@ function getWeather(){
 
         document.getElementById('weather_temperature').innerHTML = "City : " + " Hello!";
         console.log(response);
-        //console.log("latitude = " + response.results.geometry.location.lat + ", longitude = " + response.results.geometry.location.lng);
         console.log("latitude = " + response.results[0].geometry.location.lat);
-        //console.log("latitude = " + response.results[0].geometry.location.lat);
+        console.log("longitude = " + response.results[0].geometry.location.lng);
         }catch(error){
             alert('City Not Found :(');
         }
