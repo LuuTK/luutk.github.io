@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Todo</title>
+      
+
+      <script src="todo/libs/jquery-1.11.2.min.js"></script>
+      <script src="todo/libs/handlebars-v1.3.0.js"></script>
+      <script src="todo/libs/ember.js"></script>
+      <script src="todo/libs/ember-data.js"></script>
+
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+      <!-- Bootstrap.js -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+      <!-- Optional theme -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" type="text/css" href="style.css"/>
+      <link rel="stylesheet" href="todo/style.css">
+      <script>
+         window.Todos = Ember.Application.create();
+         Todos.ApplicationAdapter = DS.FixtureAdapter.extend();
+
+         Todos.Router.map(function() {
+            this.resource('todos', { path: '/' });
+         });
+
+         Todos.TodosRoute = Ember.Route.extend({
+            model: function() {
+               return this.store.find('todo');
+            }
+         });
+
+         // This code creates a new class Todo and places it within your application's namespace.
+         // Each todo will have two attributes: title and isCompleted.
+         Todos.Todo = DS.Model.extend({
+            title: DS.attr('string'),
+            isCompleted: DS.attr('boolean')
+         });
+
+         Todos.Todo.FIXTURES = [ ];
+         
+         Todos.TodosController = Ember.ArrayController.extend({
+            actions: {
+               createTodo: function() {
+                  // Get the todo title set by the "New Todo" text field
+                  var title = this.get('newTitle');
+                  if (!title.trim()) { return; }
+
+                  // Create the new Todo model
+                  var todo = this.store.createRecord('todo', {
+                     title: title,
+                     isCompleted: false
+                  });
+
+                  // Clear the "New Todo" text field
+                  this.set('newTitle', '');
+
+                  // Save the new model
+                  todo.save();
+               }
+            },
+
+            remaining: function() {
+               return this.filterBy('isCompleted', false).get('length');
+            }.property('@each.isCompleted'),
+
+            inflection: function() {
+               var remaining = this.get('remaining');
+               return remaining === 1 ? 'item' : 'items';
+            }.property('remaining')
+         });
+
+         Todos.TodoController = Ember.ObjectController.extend({
+            actions: {
+               editTodo: function() {
+                  this.set('isEditing', true);
+               },
+
+               acceptChanges: function() {
+                  this.set('isEditing', false);
+
+                  if (Ember.isEmpty(this.get('model.title'))) {
+                     this.send('removeTodo');
+                  } else {
+                     this.get('model').save();
+                  }
+               },
+
+               removeTodo: function () {
+                  var todo = this.get('model');
+                  todo.deleteRecord();
+                  todo.save();
+               }
+            },
+
+            isEditing: false,
+
+            isCompleted: function(key, value){
+               var model = this.get('model');
+               
+               if (value === undefined) {
+                  // property being used as a getter
+                  return model.get('isCompleted');
+               } else {
+                  // property being used as a setter
+                  model.set('isCompleted', value);
+                  model.save();
+                  return value;
+               }
+            }.property('model.isCompleted')
+         });
+
+         Todos.EditTodoView = Ember.TextField.extend({
+            didInsertElement: function() {
+               this.$().focus();
+            }
+         });
+
+         Ember.Handlebars.helper('edit-todo', Todos.EditTodoView);
+      </script>
+   </head>
+
+   <body>
+      <header>
+         <div class="navbar navbar-custom">
+            <div class="container">
+               <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#button1">
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                  </button>
+                  <a href="index.html" class="navbar-brand">GetWorkDone</a>
+               </div>
+               <div class="collapse navbar-collapse">
+                  <ul class="nav navbar-nav">
+                     <li class="active"><a href="main.html">MAIN APP</a></li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                     <li class="active"><a href="login.html" onclick="logout()">LOG OUT</a></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </header>
+
+      <script type="text/x-handlebars" data-template-name="todos">
+         <section id="todoapp">
+            <header id="header">
+                  {{input
+                     type="text"
+                     id="new-todo"
+                     placeholder="What needs to be done?"
+                     value=newTitle
+                     action="createTodo"}}
+            </header>
+
+            <section id="main">
+               <ul id="todo-list">
+                  {{#each todo in model itemController="todo"}}
+                     <li {{bind-attr class="todo.isCompleted:completed todo.isEditing:editing"}}>
+                        {{#if todo.isEditing}}
+                           {{edit-todo class="edit" value=todo.title focus-out="acceptChanges" insert-newline="acceptChanges"}}
+                        {{else}}
+                        {{input type="checkbox" checked=todo.isCompleted class="toggle"}}
+                        <label {{action "editTodo" on="doubleClick"}}>{{todo.title}}</label>
+                        <button {{action "removeTodo"}} class="destroy"></button>
+                        {{/if}}
+                     </li>
+                  {{/each}}
+               </ul>
+               <input type="checkbox" id="toggle-all">
+            </section>
+
+            <footer id="footer">
+               <span id="todo-count">
+                  <strong>{{remaining}}</strong>
+                  {{inflection}} left
+               </span>
+            </footer>
+         </section>
+
+         <footer id="info">
+            <p>Double-click to edit</p>
+         </footer>
+      </script>
+	  
+	  	<div class="navbar navbar-custom navbar-fixed-bottom">
+			<div class="container">
+				<p class="footer-text">&copy GetWorkDone 2015</p>
+			</div>
+		</div>
+   </body>
+</html>

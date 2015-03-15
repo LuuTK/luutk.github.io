@@ -3,93 +3,165 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>GetWorkDone - Home</title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+         <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <!-- Bootstrap.js -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" type="text/css" href="style.css"/>
+
 		<script src="https://apis.google.com/js/client:platform.js" async defer></script>
+        <script src = "https://plus.google.com/js/client:plusone.js"></script>
 
 		<!-- Links and script for calendar-->
 		<link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
-		<script src='lib/jquery-2.1.3.min.js'></script>
 		<script src='lib/moment.min.js'></script>
 		<script src='fullcalendar/fullcalendar.js'></script>
 		<script type='text/javascript' src='fullcalendar/gcal.js'></script>
+		<script src = 'js/login.js'></script>
 
-		<!-- Weather Script -->
+	</head>	<!-- Calls loadFullCalendar when this html is loaded -->
 
-	<!-- end weather script -->
-
-
-
-		<!--
-		<script src='lib/cal.js'></script>
-		-->
-		<script src='js/login.js'></script>
-		
-	</head>
-
-	<!-- Calls loadFullCalendar when this html is loaded -->
 	<body onload="loadFullCalendar()">
-		<nav>
-			<ul>
-				<li><a href="index.html">HOME</a></li>
-				<li><a href="accountSettings.html">ACCOUNT SETTINGS</a></li>
-			</ul>
-		</nav>
 
-		<div style="float: right">
-			<div id="user_email">user@gmail.com</div>
-			<button onclick="logout()">Log-out</button>
-			<br><br><br>
+    <header>
+        <div class="navbar navbar-custom">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#button1">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="index.html" class="navbar-brand">GetWorkDone</a>          
+                    
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="todoIndex.html">TODO</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="login.html" onclick="logout()">LOG OUT</a></li>
+                    </ul>
+                </div>          
+            </div>
+        </div>
+    </header>
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- This div contain the calendar -->
+                    <div id="calendar"></div>
+                </div>
+
+                <div class="col-md-4">
+                    <div id="user_email" style="float: right">user@gmail.com</div>
+                    <br><br>
+                    <div class="widget">
+                        <h5>Enter Location for weather!</h5>
+                        <input type="text" id="weather_location" value="">
+                        <button type="button" class="btn btn-primary" onclick="getWeather()">Weather!</button>
+                        <button type="button" class="btn btn-primary" onclick="getGeocode()">TimeZone</button>
+                        <div id="weather_temperature"></div>
+                        <div id="weather_title"></div>
+                        <div id="weather_description"></div>
+                        <div id="weather_wind_speed"></div>
+                    </div>
+                    <br>
+                    
+                    <div class="widget">
+                        <form id="newevent">
+                            <table>
+                                <tr>
+                                    <td>Event</td>
+                                    <td><input type="text" name="event" style="width:75%" id="eventname"></td>
+                                </tr>
+                                <tr>
+                                    <td>Location</td>
+                                    <td><input type="text" name="location" style="width:75%" id="location"></td>
+                                </tr>
+                                <tr>
+                                    <td>From</td>
+                                    <td>
+                                        <input type="date" name="fdate" id="fdate">
+                                        <input type="time" name="ftime" id="ftime">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>To</td>
+                                    <td>
+                                        <input type="date" name="tdate" id="tdate">
+                                        <input type="time" name="ttime" id="ttime">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Reminder</td>
+                                    <td>
+                                        <select>
+                                        <option value="none">No Reminder</option>
+                                        <option value="sms">SMS</option>
+                                        <option value="email">Email</option>
+                                        </select>
+                                    </td>    
+                                </tr>
+                                <tr>
+                                    <td>Category</td>
+                                    <td>
+                                        <select>
+                                            <option value="default">Default</option>
+                                            <option value="red">Red</option>
+                                            <!-- add more colour as needed -->
+                                        </select>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </form>
+                
+                        <div class="form-submit">
+                            <button type="button" class="btn btn-primary form-submit" onclick="clearForm()">Cancel</button>
+                            <button type="button" class="btn btn-primary form-submit" onclick="sendData()">Done</button>
+                        </div>  
+                    </div>
 
 
-		<!-- WEATHER PART -->
-			
-			<p>Enter Location for weather!</p>
-			<input type="text" id="weather_location" value="">
-			<button onclick="getWeather()">Weather!</button>
-			<div id="weather_temperature">Temperature : </div>
-			<div id="weather_title"></div>
-			<div id="weather_description"></div>
-			<div id="weather_wind_speed"></div>
+                    <!-- invite button -->
+                    <br>
+                    <div id="invite"></div>
+                    <div class="widget">
+                        <div class="form-submit">
+                            <button type="button" class="btn btn-primary form-submit" onclick="enterEmail()">Invite</button>
+                        </div>  
+                    </div>
 
-
-			
-
-		</div>
-
-
-
-
-
-		
-		
-
-
-		
-		<!-- WEATHER PART -->
-		<table>
-
-			<tr>
-				<td>
-					<img src="img/button_add.png" alt="Add Event">
-					<img src="img/button_delete.png" alt="Delete Event" height="30" width="100">
-					<h3>Calender</h3>
-
-					<!-- This div contain the calendar -->
-					<div id='calendar'></div>
-
-				</td>
-				<td>
-					<h3>List</h3>
-					<ol>
-						<li>Birthday Party</li>
-						<li>Assignment B Due</li>
-						<li>Quiz tomorrow</li>
-					</ol>
-				</td>
-			</tr>
-		</table>
-		<footer>
-			<p><small>&copy; GetWorkDone 2015</small></p>
-		</footer>
-	</body>
+                </div>
+            </div>
+    
+        <!-- <div id="calendar"></div> -->
+        <div id="dialog" title="My dialog" style="display:none">
+            <form>
+                <fieldset>
+                    <label for="Id">Id</label>
+                    <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all">
+                    <label for="Id">Title</label>
+                    <input type="text" name="title" id="title" class="text ui-widget-content ui-corner-all">
+                </fieldset>
+            </form>
+        </div>
+        <br><br><br>
+    </div>
+        
+        <!-- Footer -->
+        <div class="navbar navbar-custom navbar-fixed-bottom">
+            <div class="container">
+                <p class="footer-text">&copy GetWorkDone 2015</p>
+            </div>
+        </div>
+    </body>
 </html>

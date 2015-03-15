@@ -1,64 +1,98 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<title>GetWorkDone - Home</title>
-<link rel="stylesheet" type="text/css" href="style.css"/>
-<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-<script src="https://apis.google.com/js/client:platform.js" async defer></script>
-<script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>
-<script src="js/login.js"></script>
-<script src="https://plus.google.com/js/client:plusone.js"></script>
+	<meta charset="UTF-8">
+	<title>GetWorkDone</title>
 
-<link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
-		
-<script src='lib/moment.min.js'></script>
-<script src='fullcalendar/fullcalendar.js'></script>
-<script type='text/javascript' src='fullcalendar/gcal.js'></script>
+	<!-- BootStrap stylesheets -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+	<!-- Our stylesheet -->
+	<link rel="stylesheet" href="style.css">
+
+	<!--Scripts for the google calendar and  account authentication.-->
+    <script src='lib/jquery-2.1.3.min.js'></script>
+    <script src="https://apis.google.com/js/client:platform.js" async defer></script>
+    <script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>
+    <script src="js/login.js"></script>
+
+    <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+            
+    <script src='lib/moment.min.js'></script>
+    <script src='fullcalendar/fullcalendar.js'></script>
+    <script type='text/javascript' src='fullcalendar/gcal.js'></script>
+    <script src = "https://plus.google.com/js/client:plusone.js"></script>
 
 </head>
 
 <body>
 
-	<nav>
-		<ul>
-			<li><a href="index.html">HOME</a></li>
-			<li><a href="about.html">ABOUT</a></li>
-			<li><a href="main.html">MAIN APP</a></li>
-		</ul>
-	</nav>
+	<header>
+		<div class="navbar navbar-custom">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#button1">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a href="index.html" class="navbar-brand">GetWorkDone</a>
+				</div>
+				<div class="collapse navbar-collapse">
+	                <ul class="nav navbar-nav navbar-right">
+	                    <li class="active"><a href="login.html">LOGIN</a></li>
+                	</ul>
+				</div>			
+			</div>
+		</div>
+	</header>
 
-    <!-- Google sign-in button -->
-	<form action="" method="post">
-	    <span id="signinButton">
-	      <span
-	        class="g-signin"
-	        data-callback="signinCallback"
-	        data-clientid="857275475381-do5i2sebtvrbljdmjm61t53b56j78htb@developer.gserviceaccount.com"
-	        data-cookiepolicy="single_host_origin"
-	        data-requestvisibleactions="http://schema.org/AddAction"
-	        data-scope="
-	        https://www.googleapis.com/auth/plus.login 
-	        https://www.googleapis.com/auth/calendar 
-	        https://www.googleapis.com/auth/userinfo.email 
-	        https://www.googleapis.com/auth/userinfo.profile"
-	        data-width="wide"
-	        data-prompt="consent">
-	       
-	        
-	        
-	        
-	        
-	      </span>
-	    </span>
-	    <br>
-		<a href="https://accounts.google.com/SignUp?continue=https%3A%2F%2Fwww.google.ca%2F%3Fgws_rd%3Dssl&hl=en">Create an account</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-4 login-col">
+                <h2>Start using GetWorkDone!</h2>
+                <br>
+                <h4>Login to your Google account!</h4>
+                <h4>Or create a new one.</h4>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-4 login-col">
+                <br><br><br><br>
+                <span id="signinButton">
+                  <span
+                    class="g-signin"
+                    data-callback="signinCallback"
+                    data-clientid="36651784653-cb9lghukoo8mov2ilfskr43l7l085jd6.apps.googleusercontent.com"
+                    data-cookiepolicy="single_host_origin"
+                    data-requestvisibleactions="http://schema.org/AddAction"
+                    data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+                    data-width="wide"
+                    data-prompt="consent">
+                  </span>
+                </span>
+                <br>
+                <a href="https://accounts.google.com/SignUp?continue=https%3A%2F%2Fwww.google.ca%2F%3Fgws_rd%3Dssl&hl=en">Create an account</a>
+            </div>              
+        </div>
+    </div>
 
-	</form>
+	<div class="navbar navbar-custom navbar-fixed-bottom">
+		<div class="container">
+			<p class="footer-text">&copy GetWorkDone 2015</p>
+		</div>
+	</div>
 
-	<footer>
-		<p><small>&copy; GetWorkDone 2015</small></p>
-	</footer>
+	<!-- Scripts to use JQuery and Bootstrap -->	
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 </body>
+
 </html>

@@ -1,83 +1,70 @@
-* {
-	margin: 0;
-	padding: 0;
+/**Jumbotron **/
+.jumbotron h2 {
+	float: left;
+	width: 70%;
 }
 
-body {
+.jumbotron img {
+	float: right;
+}
+
+#content {
 	margin: 0 auto;
-	width: 1200px;
-	font-family: Arial;
-	color: black;
+	width: 75%;
+}
+/**Navigation bar **/
+.footer-text {
+	text-align: center;
+	font-size: 1em;
+	margin-top: 10px;
+	color: white;
 }
 
-/**Navigation bar **/
-nav ul{
-	list-style-type: none;
-	height: 50px;
+.navbar-custom {
 	background-color: #096BB2;
 }
 
-
-li {
-	float: left;
-	margin-left: 60px;
-	padding: 10px 10px;
+.navbar-custom a {
+	color: white;
+	font-weight: bold;
+	font-size: 1.2em;
+	letter-spacing: 1px;
 }
 
-a {
-	color: white;
-	font-size: 1.5em;
-	padding: 10px;
-	font-weight: bold;
-	text-decoration: none;
+.navbar-custom li:hover a{
+	color: #096BB2;
+}
+
+/* Main page */
+.features {
+	text-align: center;
+	background-image: linear-gradient(to bottom,#58C1D9 0,#58C1D9 100%);
 }
 
 /**Login Form**/
-form {
-	width: 25%;
-	height: 35%;
-	background-color: lightblue;
-	margin-top: 15%;
-	margin-left: 35%;
-	padding: 15px;
+.login-col {
+	padding-top: 10%;
 	border-radius: 10px;
-
+	vertical-align: center;
 }
 
-form a {
+/* Main */
+#newevent > table {
+	border-spacing: 1em;
+	border-collapse: separate;
+}
+
+.form-submit {
+	position: relative;
+	text-align: right;
+}
+
+.widget {
+	background-color: #9EE4E6;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+#eventInfo {
 	color: black;
-	font-size: 0.8em;
-	font-weight: normal;
-	font-variant: normal;
-	text-decoration: underline;
-	margin-left: 20px;
 }
-
-/**For features in the main.html **/
-h3 {
-	text-align: center;
-}
-
-table td {
-	width: 65%;
-}
-
-table li {
-	width: 100%;
-}
-
-/**Footer**/
- footer
- {
-	height: 25px;
-	width: 100%;
-	color: white;
-	background-color: #096BB2;
-	font-weight: bold;
-	text-transform: uppercase;
-	text-align: center;
-	word-spacing: 0.2em;
-	bottom: 0;
-	position: absolute;
-	padding-bottom: 5px;	
- }

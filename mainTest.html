@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Example</title>
+
+	<!-- BootStrap stylesheets -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+	<!-- Our stylesheet -->
+	<link rel="stylesheet" href="style.css">
+
+	<!-- Load google api -->
+	<script src="https://apis.google.com/js/client:platform.js" async defer></script>
+	
+	<!-- Links and script for calendar-->
+	<link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+	<script src='lib/jquery-2.1.3.min.js'></script>
+	<script src='lib/moment.min.js'></script>
+	<script src='fullcalendar/fullcalendar.js'></script>
+	<script type='text/javascript' src='fullcalendar/gcal.js'></script>
+	<script src = 'js/login.js'></script>	
+
+
+	<SCRIPT Language="JavaScript">
+		function enterEmail(frm){
+		var email = prompt("please enter the email of an invitee.")
+
+		if(email == ""){
+		    alert("please enter a correct email address")
+		}
+		else {
+			alert("the entered email is "+ email)
+		}
+}
+</SCRIPT>
+	
+</head>
+
+<!-- Calls loadFullCalendar when this html is loaded -->
+<body onload="loadFullCalendar()">
+
+	<header>
+
+		<!-- Navigation bar -->
+		<div class="navbar navbar-custom">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#button1">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a href="" class="navbar-brand">GetWorkDone</a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="index.html">HOME</a></li>
+						<li><a href="">ABOUT</a></li>
+						<li class="active"><a href="main.html">MAIN APP</a></li>
+					</ul>
+				</div>			
+			</div>
+		</div>	
+
+	</header>
+
+	<div class="container">
+		<!-- Indicates who is logged in. -->
+		<div style="float: right">
+			<div id="user_email">user@gmail.com</div>
+			<button onclick="logout()">Log-out</button>
+		</div>
+
+		<table>
+
+			<tr>
+				<td>
+                    <button onclick="insert()">Insert Test</button>
+					<a href="newevent.html"><img src="img/button_add.png" alt="Add Event">
+					<img src="img/button_delete.png" alt="Delete Event" height="30" width="100">
+					<h3>Calendar</h3>
+					<!-- This div contain the calendar -->
+					<div id='calendar'></div>
+
+				</td>
+				<td>
+					<h3>List</h3>
+					<ol>
+						<li>Birthday Party</li>
+						<li>Assignment B Due</li>
+						<li>Quiz tomorrow</li>
+						
+					</ol>
+				</td>
+			</tr>
+		</table>
+   </div>
+
+	<div class="navbar navbar-custom navbar-fixed-bottom">
+		<div class="container">
+			<p class="navbar-text">&copy GetWorkDone 2015</p>
+		</div>
+	</div>
+	<H2>Test of enter an email address</H2>
+	<p>
+	<INPUT TYPE="Button" Value="Invite" onClick="enterEmail()">
+	</p>
+	<!-- Scripts to use JQuery and Bootstrap --> 
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="http://code.jquery.com/jquery-2.1.3.min.js"</script>		
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
