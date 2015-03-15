@@ -668,7 +668,7 @@ function getWeather(){
 }
 
 function getTimeFromGeoLocation(latitude, longitude){
-
+console.log("latitude in geo = " + latitude);
  //http://api.geonames.org/timezone?lat=45.5016889&lng=-73.567256&username=demo
 var timeFromGeo = "";
    // var url = "http://api.geonames.org/timezone?lat=45.5016889&lng=-73.567256&username=demo";
