@@ -631,8 +631,8 @@ function logout() {
 function getWeather(){
     //https://maps.googleapis.com/maps/api/geocode/json?address=Winnetka&key=API_KEY
     var apiKey = "AIzaSyAAxypsNYuwjy_Mc2uqEngbMxAPVO9A12M";
-    var cityName = "";
-    var url = "https://maps.googleapis.com/maps/api/geocode/json?address=Winnetka&key=" + apiKey;
+    var cityName = "montreal";
+    var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cityName + "&key=" + apiKey;
 
     $.ajax({
       dataType: "json",
