@@ -650,6 +650,7 @@ function getWeather(){
       }
     });
 
+    console.log(response.results);
 }
 
 function farenheitToCelcius(value){
