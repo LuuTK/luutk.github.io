@@ -599,7 +599,7 @@ function logout() {
 	});
 }
 
- function getWeather() {
+ //function getWeather() {
     var input_location = document.getElementById("weather_location").value;
     var url1 = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22"
     var url2 = input_location;
@@ -627,6 +627,30 @@ function logout() {
       }
     });
 }
+//testing
+function getWeather(){
+    //https://maps.googleapis.com/maps/api/geocode/json?address=Winnetka&key=API_KEY
+    var apiKey = "AIzaSyBpR0D25YSWU0cb3kg7zoAimFQwG3uE1tY";
+    var cityName = "";
+    var url = "https://maps.googleapis.com/maps/api/geocode/json?address=Winnetka&key=" + apiKey;
+
+    $.ajax({
+      dataType: "json",
+      url: url,
+      success: function(response) {
+
+        try{
+
+        document.getElementById('weather_temperature').innerHTML = "City : " + " Hello!";
+        console.log(response);
+        }catch(error){
+            alert('City Not Found :(');
+        }
+
+      }
+    });
+
+}
 
 function farenheitToCelcius(value){
 
@@ -634,6 +658,8 @@ function farenheitToCelcius(value){
 
 
 }
+
+
 
 function getGeocode(){
     var input_location = document.getElementById("weather_location").value;
@@ -815,4 +841,8 @@ function request2(){
 
     }
 
+function getTime(){
+
+
+}
 
