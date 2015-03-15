@@ -659,8 +659,8 @@ function getTimeFromGeoLocation(latitude, longitude){
 
  //http://api.geonames.org/timezone?lat=45.5016889&lng=-73.567256&username=demo
 
-    var url = "http://api.geonames.org/timezone?lat=45.5016889&lng=-73.567256&username=demo";
-
+   // var url = "http://api.geonames.org/timezone?lat=45.5016889&lng=-73.567256&username=demo";
+    var url = "http://api.geonames.org/timezoneJSON?lat=" + latitude + "&lng=" + longitude + "&username=demo";
     $.ajax({
       dataType: "json",
       url: url,
