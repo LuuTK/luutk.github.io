@@ -631,7 +631,7 @@ function logout() {
 function getWeather(){
     //https://maps.googleapis.com/maps/api/geocode/json?address=Winnetka&key=API_KEY
     var apiKey = "AIzaSyAAxypsNYuwjy_Mc2uqEngbMxAPVO9A12M";
-    var cityName = "montreal";
+    var cityName = document.getElementById("weather_location").value;
     var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cityName + "&key=" + apiKey;
     var latitude = "";
     var longitude = "";
