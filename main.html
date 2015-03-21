@@ -67,7 +67,9 @@
                         <h5>Enter Location for weather!</h5>
                         <input type="text" id="weather_location" value="">
                         <button type="button" class="btn btn-primary" onclick="getWeather()">Weather!</button>
-                        <button type="button" class="btn btn-primary" onclick="getGeocode()">TimeZone</button>
+                        <button type="button" class="btn btn-primary" onclick="getTimeFromLocation()">TimeZone</button>
+                        <div id="date_time"></div>
+                        <div id="timezoneId"></div>
                         <div id="weather_temperature"></div>
                         <div id="weather_title"></div>
                         <div id="weather_description"></div>
@@ -103,21 +105,32 @@
                                 <tr>
                                     <td>Reminder</td>
                                     <td>
-                                        <select>
+                                        <select id="remind">
                                         <option value="none">No Reminder</option>
                                         <option value="sms">SMS</option>
                                         <option value="email">Email</option>
                                         </select>
+                                        <input type="text" name="minutes" style="width:25%" id="remindMin"> minutes
                                     </td>    
                                 </tr>
                                 <tr>
                                     <td>Category</td>
                                     <td>
-                                        <select>
+                                       
+                                        <select id = "color">
                                             <option value="default">Default</option>
-                                            <option value="red">Red</option>
+                                            <!--<option value="red">Red</option>
+                                            <option value="green"> Green </option>
+                                            <option value="purple"> Purple </option>
+                                            <option value ="yellow"> Yellow </option>
+                                            <option value ="black"> Black </option>
+                                            <option value ="brown"> Brown </option>
+                                            <option value ="grey"> Grey </option>
+                                            <option value ="pink"> Pink </option>
+                                            <option value ="orange"> Orange </option>-->
                                             <!-- add more colour as needed -->
                                         </select>
+                                    
                                     </td>
                                 </tr>
 
@@ -125,10 +138,14 @@
                         </form>
                 
                         <div class="form-submit">
+                            <button type ="button" class = "btn btn-primary"
+                                onclick ="showColorOption()">Add Category</button>
                             <button type="button" class="btn btn-primary form-submit" onclick="clearForm()">Cancel</button>
                             <button type="button" class="btn btn-primary form-submit" onclick="sendData()">Done</button>
                         </div>  
+                        <div id="colorcategory"></div>
                     </div>
+
 
 
                     <!-- invite button -->
@@ -137,6 +154,7 @@
                     <div class="widget">
                         <div class="form-submit">
                             <button type="button" class="btn btn-primary form-submit" onclick="enterEmail()">Invite</button>
+                            <button type="button" class="btn btn-primary form-submit" onclick="shareCalendar()">Share</button>
                         </div>  
                     </div>
 
@@ -156,6 +174,8 @@
         </div>
         <br><br><br>
     </div>
+        <script>
+        </script>
         
         <!-- Footer -->
         <div class="navbar navbar-custom navbar-fixed-bottom">

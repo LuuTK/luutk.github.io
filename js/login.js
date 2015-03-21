@@ -1,6 +1,8 @@
 var calendar;
 var edit =false;
 var visible = false; // stores where popovers are visible
+var colorVisible = false; //store where color popover are visible
+
 //toggleTable(true);
 //toggleTable(true);
 /**
@@ -38,7 +40,8 @@ function signinCallback(resp) {
 
 		});
 	});
-
+    //set cal colour
+    localStorage.setItem("colour", "grey");
 }
 
 /**
@@ -76,29 +79,69 @@ function auth(){
  * Insert event handler
  */
 function insert(){
+    var e = document.getElementById("remind")
+    var reminder = e.options[e.selectedIndex].value
    auth()
     //load calendar API
     gapi.client.load('calendar', 'v3', function(){
-        var resource = {
-            //Title of the event
-            "summary": localStorage.getItem('Title'),
-            //location
-            "location": localStorage.getItem('location'),
-            "start": {
-                //start time: formate YY-mm-ddTHH:MM:SS / Year-month/dateTHour:Mins:second
-                "dateTime": localStorage.getItem('startDate'),
-                "timeZone": "America/Toronto"
-            },
-            "end": {
-                "dateTime": localStorage.getItem('endDate'),
-                "timeZone": "America/Toronto"
-            },
-            "reminders":{
-                "userDefault": false
-            }
-        };
+
+        if(reminder == "none") {
+            var remind = false
+            console.log("No reminder")
+            var resource = {
+                //Title of the event
+                "summary": localStorage.getItem('Title'),
+                //location
+                "location": localStorage.getItem('location'),
+                "start": {
+                    //start time: formate YY-mm-ddTHH:MM:SS / Year-month/dateTHour:Mins:second
+                    "dateTime": localStorage.getItem('startDate'),
+                    "timeZone": "America/Toronto"
+                },
+                "end": {
+                    "dateTime": localStorage.getItem('endDate'),
+                    "timeZone": "America/Toronto"
+                }
+                     
+            };
+        }else{
+            var remind = true
+            console.log("need reminder")
+            console.log("reminder: "+ reminder)
+            var min = document.getElementById("remindMin").value;
+            var resource = {
+                //Title of the event
+                "summary": localStorage.getItem('Title'),
+                //location
+                "location": localStorage.getItem('location'),
+                "start": {
+                    //start time: formate YY-mm-ddTHH:MM:SS / Year-month/dateTHour:Mins:second
+                    "dateTime": localStorage.getItem('startDate'),
+                    "timeZone": "America/Toronto"
+                },
+                "end": {
+                    "dateTime": localStorage.getItem('endDate'),
+                    "timeZone": "America/Toronto"
+                },
+                //"defaultReminders": [
+                //    {
+                //        "method": reminder,
+                //        "minutes": 30
+                //    }
+                //],
+                "reminders": {
+                    "useDefault": false,
+                    "overrides": [{
+                        "method": reminder,
+                        "minutes": min
+                    }]
+
+                }
+            };
+        }
         var request = gapi.client.calendar.events.insert({
             'calendarId': 'primary',
+            //'sendNotifications': remind,
             'resource': resource
         });
         request.execute(function(resp){
@@ -136,13 +179,14 @@ function loadFullCalendar() {
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
-
+    
 	calendar=$('#calendar').fullCalendar({
 
         // Connect to Google Calendar
 		googleCalendarApiKey : 'AIzaSyCiq6fTkZwSKgvhzY-HNDZM5YQD0ebyZBE',
 		events : {
-			googleCalendarId : email
+			googleCalendarId : email,
+            color: localStorage.getItem("colour")
 		},
         header: {
             left: 'prev,next today',
@@ -163,10 +207,7 @@ function loadFullCalendar() {
         // alert("Please enter new event in side form an press done");
 
         // Dismiss popover when clicking calendar
-        if ($('.popover').hasClass('in')) {
-            $('.popover').popover('hide');
-            visible = false;
-        }
+        closePopup();
      },
 
      //after the user clicks on an event he has to click the delete or modify button to delete or modify the event he has selected
@@ -181,7 +222,7 @@ function loadFullCalendar() {
          var location = calEvent.location;
          var startTime = moment(calEvent.start).format("DD-MM-YYYY HH:mm");
          var endTime = moment(calEvent.end).format("DD-MM-YYYY HH:mm");
-
+         
          if (typeof location == 'undefined') {
             location = "";
          }
@@ -189,6 +230,7 @@ function loadFullCalendar() {
          localStorage.setItem("cur_location", location)
          localStorage.setItem("cur_sTime", startTime)
          localStorage.setItem("cur_eTime", endTime)
+         / localStorage.setItem("cur_color",color)
 
          // Dismiss/show popovers
         if (visible) {
@@ -205,101 +247,289 @@ function loadFullCalendar() {
                 + "</p><p><b>Start Time:</b> " + startTime 
                 + "</p><p><b>End Time:</b> " + endTime
                 + "</p>"
+                            +"<p>Category"
+                            +"<select id='color'>"
+                            +"<option value='default'>Default</option>"
+                            +"<option value='red'>Red</option>"
+                            +"<option value='green'> Green </option>"
+                            +"</select></p>"
                 + "<button type='button' onclick='mod_display()' class='btn btn-primary'>Modify</button>  "
                 + "<button type='button' onclick='deleteEvent()' class='btn btn-primary'>Delete</button>"
+                +"<button type='button' onclick='saveColor()' class='btn btn-primary'>Save</button>"
+                +"<button type = 'button' onclick ='showColorOption()' class = 'btn btn-primary'>Choose Custom Color</button>"
                 + "</div>"
             })
             $(this).popover('show');
-        }
 
+        }
          return false;
      }
 
     });
 }
 
+function showColorOption(){
+    if (colorVisible) {
+        colorVisible = false;
+        $('#colorcategory').popover('hide');
+    } else {
+        colorVisible = true;
+        $('#colorcategory').popover({
+                            html: true,
+                            placement: 'down',
+                            container: 'body',
+                            title: 'Choose color',
+                            content:'<p><select id = "colorChoice">'
+                                                    +'<option value="default">Default</option>'
+                                                    +'<option value="red">Red</option>'
+                                                    +'<option value="green"> Green </option>'
+                                                    +'<option value="purple"> Purple </option>'
+                                                    +'<option value ="yellow"> Yellow </option>'
+                                                    +'<option value ="black"> Black </option>'
+                                                    +'<option value ="brown"> Brown </option>'
+                                                    +'<option value ="grey"> Grey </option>'
+                                                    +'<option value ="pink"> Pink </option>'
+                                                    +'<option value ="orange"> Orange </option>'
+                                                    +'</select></p>'
+                                                    +'<p><button type="button" class="btn btn-primary form-submit" onclick="saveColor()">Save</button></p>'
+                            })
+        $('#colorcategory').popover('show');
+    }
+}
+
+// function showColorOptionPopup(){
+//     if (colorVisible) {
+//         colorVisible = false;
+//         $('#eventinfo').popover('hide');
+//     } else {
+//         colorVisible = true;
+//         $('#eventinfo').popover({
+//                             html: true,
+//                             placement: 'down',
+//                             container: 'body',
+//                             title: 'Choose color',
+//                             content:'<p><select id = "colorChoicePopup">'
+//                                                     +'<option value="default">Default</option>'
+//                                                     +'<option value="red">Red</option>'
+//                                                     +'<option value="green"> Green </option>'
+//                                                     +'<option value="purple"> Purple </option>'
+//                                                     +'<option value ="yellow"> Yellow </option>'
+//                                                     +'<option value ="black"> Black </option>'
+//                                                     +'<option value ="brown"> Brown </option>'
+//                                                     +'<option value ="grey"> Grey </option>'
+//                                                     +'<option value ="pink"> Pink </option>'
+//                                                     +'<option value ="orange"> Orange </option>'
+//                                                     +'</select></p>'
+//                                                     +'<p><button type="button" class="btn btn-primary form-submit" onclick="saveColor()">Save</button></p>'
+//                             })
+//         $('#eventinfo').popover('show');
+//     }
+// }
+
+//function addColor(Category,Color){
+//    colorVisible = false;
+//    document.getElementById("color").innerHTML += '<option value = Color> Category </option>';
+//}
+
+// Call this function to close popovers on calendar
 function closePopup () {
-     document.getElementById("eventInfo").innerHTML="<button type ='button'class = 'close' >Close</button>";
-     
-    e= $('#close');
-    $('.pop').slideFadeToggle(function() {
-                              e.removeClass('selected');
-                              });
-    return false;
+    if ($('.popover').hasClass('in')) {
+        $('.popover').popover('hide');
+        visible = false;  
+    }
 }
 
 $.fn.slideFadeToggle = function(easing, callback) {
     return this.animate({ opacity: 'toggle', height: 'toggle' }, 'fast', easing, callback);
 };
-    function mod_display(calEvent){
-        document.getElementById("eventinfo").innerHTML =  '<form id="newevent">'
-        +'<table>'
-        +'<tr>'
-        +'<td>Event</td>'
-        +'<td><input type="text" name="event" style="width:75%" id="mEventname" value="'
-        + localStorage.getItem("cur_title")+'">'
-        +'</td>'
-        +' </tr>'
-        +'<tr>'
-        +'<td>Location</td>'
-        +'<td><input type="text" name="location" style="width:75%" id="mLocation" value="'
-        + localStorage.getItem("cur_location")+'">'
-        +'</td>'
-        +'</tr>'
-        +'<tr>'
-        +'<td>From</td>'
-        +'<td>'
-        +'<input type="date" name="fdate" id="mfdate">'
-        +'<input type="time" name="ftime" id="mftime">'
-        +'</td>'
-        +'</tr>'
-        +'<tr>'
-        +'<td>To</td>'
-        +'<td>'
-        +'<input type="date" name="tdate" id="mtdate">'
-        +'<input type="time" name="ttime" id="mttime">'
-        +'</td>'
-        +'</tr>'
-        +'<tr>'
-        +'<td>Category</td>'
-        +'<td><select>'
-        +'<option value="default">Default</option>'
-        +'<option value="red">Red</option>'
-        +'</select></td>'
-        +'</tr>'
 
-        +'</table>'
-        +'</form>'
+function mod_display(calEvent){
+    document.getElementById("eventinfo").innerHTML =  '<form id="newevent">'
+    +'<table>'
+    +'<tr>'
+    +'<td>Event</td>'
+    +'<td><input type="text" name="event" style="width:75%" id="mEventname" value="'
+    + localStorage.getItem("cur_title")+'">'
+    +'</td>'
+    +' </tr>'
+    +'<tr>'
+    +'<td>Location</td>'
+    +'<td><input type="text" name="location" style="width:75%" id="mLocation" value="'
+    + localStorage.getItem("cur_location")+'">'
+    +'</td>'
+    +'</tr>'
+    +'<tr>'
+    +'<td>From</td>'
+    +'<td>'
+    +'<input type="date" name="fdate" id="mfdate">'
+    +'<input type="time" name="ftime" id="mftime">'
+    +'</td>'
+    +'</tr>'
+    +'<tr>'
+    +'<td>To</td>'
+    +'<td>'
+    +'<input type="date" name="tdate" id="mtdate">'
+    +'<input type="time" name="ttime" id="mttime">'
+    +'</td>'
+    +'</tr>'
+    +'<tr>'
+    +'<td>Reminder</td>'
+    +'<td>'
+    +'<select id="remind_popup">'
+    +'<option value="none">No Reminder</option>'
+    +'<option value="sms">SMS</option>'
+    +'<option value="email">Email</option>'
+    +'</select>'
+    +'<br><input type="text" name="minutes" style="width:25%" id="remindMin_popup"> minutes'
+    +'</td>'
+    +'</tr>'
+    +'</table>'
+    +'</form>'
+    +'<div class="form-submit">'
+    +'<button type="button" class="btn btn-primary form-submit" onclick="after_mod()">Cancel</button>  '
+    +'<button type="button" class="btn btn-primary form-submit" onclick="modify()">Modify</button>'
+}
 
-        +'<div class="form-submit">'
-        +'<button type="button" class="btn btn-primary form-submit" onclick="after_mod()">Cancel</button>'
-        +'<button type="button" class="btn btn-primary form-submit" onclick="modify()">Modify</button>'
+function saveColor() {
+
+    // if (flag == 1) {
+        var data  = document.getElementById("colorChoice").value;
+        localStorage.setItem("colour", data);
+        document.getElementById("color").innerHTML += '<option value="'+data+'">'+data+'</option>';
+
+        // if (data == "default"){
+        //         data = "blue";
+        // }
+
+        // if (data =! "default") {
+            //     document.getElementById("colorContainer").innerHTML += '<option value="'+data+'">'+data+'</option>';
+            //     location.reload();
+            // }
+        $('#colorcategory').popover('hide');
+    // }
+
+    // if (flag==2) {
+    //     var data = document.getElementById("colorChoicePopup").value;
+
+    //     if (data == "default") {
+    //         data = "blue";
+    //     }
+
+        // calendar.fullCalendar('renderEvent',
+        //                       {
+        //                       title: localStorage.getItem('cur_title'),
+        //                       location: localStorage.getItem('cur_location'),
+        //                       start:localStorage.getItem('testsTime'),
+        //                       end: localStorage.getItem('testeTime'),
+        //                       color: data
+        //                       },
+        //                       true);
+    //     $('#eventinfo').popover('hide');
+    // }
+    
+    // load calendar API
+    gapi.client.load('calendar', 'v3', function(){
+                     
+                     if (reminder == "none") {
+                     var resource = {
+                     //Title of the event
+                     "summary": localStorage.getItem('Title'),
+                     //location
+                     "location": localStorage.getItem('location'),
+                     "start": {
+                     //start time: formate YY-mm-ddTHH:MM:SS / Year-month/dateTHour:Mins:second
+                     "dateTime": localStorage.getItem('startDate'),
+                     "timeZone": "America/Toronto"
+                     },
+                     "end": {
+                     "dateTime": localStorage.getItem('endDate'),
+                     "timeZone": "America/Toronto"
+                     },
+                     "color": data
+                     };
+                     } else {
+                     var resource = {
+                     //Title of the event
+                     "summary": localStorage.getItem('Title'),
+                     //location
+                     "location": localStorage.getItem('location'),
+                     "start": {
+                     //start time: formate YY-mm-ddTHH:MM:SS / Year-month/dateTHour:Mins:second
+                     "dateTime": localStorage.getItem('startDate'),
+                     "timeZone": "America/Toronto"
+                     },
+                     "color": data,
+                     "end": {
+                     "dateTime": localStorage.getItem('endDate'),
+                     "timeZone": "America/Toronto"
+                     },
+                     "reminders": {
+                     "useDefault": false,
+                     "overrides": [{
+                                   "method": reminder,
+                                   "minutes": 15
+                                   }]
+                     }
+                     };
+                     }
+                     
+                     var request = gapi.client.calendar.events.update({
+                                                                      'calendarId': 'primary',
+                                                                      'eventId': localStorage.getItem('gEventID'),
+                                                                      'resource': resource
+                                                                      });
+                     after_mod();
+                     request.execute(function(resp){
+                                     console.log(resp);
+                                     })
+                     })
+    after_mod();
+
+
+}
+
+
+function modify(){
+    var data = new Array();
+    data[0] = document.getElementById("mEventname").value;
+    data[1] = document.getElementById("mLocation").value;
+    data[2] = document.getElementById("mfdate").value;
+    data[3] = document.getElementById("mftime").value;
+    data[4] = document.getElementById("mtdate").value;
+    data[5] = document.getElementById("mttime").value;
+    data[6] = document.getElementById("color").value;
+    
+    if (data[6] == "default"){
+        data[6] = "blue";
     }
-    function modify(){
+//    else if (data[6] =="newCategory"){
+//        //get the color and name for the color - popup ? or alert ?
+//        showColorOption();
+//    }
 
-        var data = new Array();
-        data[0] = document.getElementById("mEventname").value;
-        data[1] = document.getElementById("mLocation").value;
-        data[2] = document.getElementById("mfdate").value;
-        data[3] = document.getElementById("mftime").value;
-        data[4] = document.getElementById("mtdate").value;
-        data[5] = document.getElementById("mttime").value;
+    localStorage.setItem('Title', data[0]);
+    localStorage.setItem('location', data[1]);
+    //localStorage.setItem('color', data[6]);
+    localStorage.setItem("cur_title", data[0])
+    localStorage.setItem("cur_location", data[1])
+    //localStorage.setItem("cur_color", data[6])
 
-        localStorage.setItem('Title', data[0]);
-        localStorage.setItem('location', data[1]);
-        localStorage.setItem("cur_title", data[0])
-        localStorage.setItem("cur_location", data[1])
+    if(validateForm(data)){
 
-        if(validateForm(data)){
-            var startDate = data[2]+"T"+data[3]+":00";
-            var endDate = data[4]+"T"+data[5]+":00";
-            localStorage.setItem('startDate', startDate);
-            localStorage.setItem('endDate', endDate);
-            localStorage.setItem("cur_sTime", startDate)
-            localStorage.setItem("cur_eTime", endDate)
-            auth()
-            //load calendar API
-            gapi.client.load('calendar', 'v3', function(){
+        var startDate = data[2]+"T"+data[3]+":00";
+        var endDate = data[4]+"T"+data[5]+":00";
+        localStorage.setItem('startDate', startDate);
+        localStorage.setItem('endDate', endDate);
+        localStorage.setItem("cur_sTime", startDate)
+        localStorage.setItem("cur_eTime", endDate)
+        var e = document.getElementById("remind_popup")
+        var reminder = e.options[e.selectedIndex].value
+        auth()
+
+        //load calendar API
+        gapi.client.load('calendar', 'v3', function(){
+
+            if (reminder == "none") {
                 var resource = {
                     //Title of the event
                     "summary": localStorage.getItem('Title'),
@@ -315,22 +545,47 @@ $.fn.slideFadeToggle = function(easing, callback) {
                         "timeZone": "America/Toronto"
                     }
                 };
-                var request = gapi.client.calendar.events.update({
-                    'calendarId': 'primary',
-                    'eventId': localStorage.getItem('gEventID'),
-                    'resource': resource
-                });
+            } else {
+                var min = document.getElementById("remindMin_popup").value;
+                var resource = {
+                    //Title of the event
+                    "summary": localStorage.getItem('Title'),
+                    //location
+                    "location": localStorage.getItem('location'),
+                    "start": {
+                        //start time: formate YY-mm-ddTHH:MM:SS / Year-month/dateTHour:Mins:second
+                        "dateTime": localStorage.getItem('startDate'),
+                        "timeZone": "America/Toronto"
+                    },
+                    "end": {
+                        "dateTime": localStorage.getItem('endDate'),
+                        "timeZone": "America/Toronto"
+                    },
+                    "reminders": {
+                        "useDefault": false,
+                        "overrides": [{
+                            "method": reminder,
+                            "minutes": min
+                        }]
+                    }
+                };
+            }
+            
+            var request = gapi.client.calendar.events.update({
+                'calendarId': 'primary',
+                'eventId': localStorage.getItem('gEventID'),
+                'resource': resource
+            });
+            request.execute(function(resp){
+                console.log(resp);
                 after_mod();
-                request.execute(function(resp){
-                    console.log(resp);
-                })
             })
-            after_mod();
-        }else {
-            alert("There was an error in your form, please make sure you filled everything properly");
-            clearForm();
-        }
+        })
+    }else {
+        alert("There was an error in your form, please make sure you filled everything properly");
+        clearForm();
     }
+}
 
 function after_mod(calEvent){
     $(this).popover({
@@ -340,12 +595,24 @@ function after_mod(calEvent){
     + "</p><p><b>Start Time:</b> " + localStorage.getItem("cur_sTime")
     + "</p><p><b>End Time:</b> " + localStorage.getItem("cur_eTime")
     + "</p>"
+    +"<p>Category"
+    +"<select id='color'>"
+    +"<option value='default'>Default</option>"
+    +"<option value='red'>Red</option>"
+    +"<option value='green'> Green </option>"
+    +"</select></p>"
     + "<button type='button' onclick='mod_display()' class='btn btn-primary'>Modify</button>  "
     + "<button type='button' onclick='deleteEvent()' class='btn btn-primary'>Delete</button>"
+    +"<button type='button' onclick='saveColor()' class='btn btn-primary'>Save</button>"
+    +"<button type = 'button' onclick ='showColorOption()' class = 'btn btn-primary'>Choose Custom Color</button>"
     + "</div>"
 
     $('#calendar').fullCalendar( 'refetchEvents' );
+
+    // close the popup
+    closePopup();
 }
+
 
 function deleteEvent() {
     auth()
@@ -365,6 +632,7 @@ function deleteEvent() {
      $('#calendar').fullCalendar("removeEvents",  localStorage.getItem('gEventID'));
      //$('#calendar').fullCalendar("refetchEvents");   
      toggleTable()
+     closePopup();
 }
 
 function toggleTable() {
@@ -391,10 +659,20 @@ function editEvent(calEvent){
     data[3] = document.getElementById("ftime").value;
     data[4] = document.getElementById("tdate").value;
     data[5] = document.getElementById("ttime").value;
+    data[6] = document.getElementById("color").value;
 
+    if (data[6] == "default"){
+        data[6] = "blue";
+    }
+//    else if (data[6] =="newCategory"){
+//        //get the color and name for the color - popup ? or alert ?
+//        showColorOption();
+//    }
 
+    
     localStorage.setItem('Title', data[0]);
     localStorage.setItem('location', data[1]);
+   // localStorage.setItem('color', data[6]);
 
 
 
@@ -412,7 +690,8 @@ function editEvent(calEvent){
                               {
                               title: data[0]+"\n at: "+ data[1],
                               start:startDate,
-                              end: endDate
+                              end: endDate,
+                              color: data[6]
                               },
                               true)
     }
@@ -433,6 +712,11 @@ function sendData(calEvent,edit)
     data[3] = document.getElementById("ftime").value;
     data[4] = document.getElementById("tdate").value;
     data[5] = document.getElementById("ttime").value;
+    data[6] = document.getElementById("color").value;
+    
+    if (data[6] == "default"){
+        data[6] = "blue";
+    }
 
     localStorage.setItem('Title', data[0]);
     localStorage.setItem('location', data[1]);
@@ -450,14 +734,15 @@ function sendData(calEvent,edit)
                               title: data[0],
                               location: data[1],
                               start:startDate,
-                              end: endDate
+                              end: endDate,
+                              color: data[6]
                               },
                               true)
     }else {
         alert("There was an error in your form, please make sure you filled everything properly");
     }
     edit =false;
-    clearForm();
+    //clearForm();
 }
 
 /* Clear the new event form */
@@ -599,43 +884,13 @@ function logout() {
 	});
 }
 
-//  function getWeather() {
-//     var input_location = document.getElementById("weather_location").value;
-//     var url1 = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22"
-//     var url2 = input_location;
-//     var url3 = "%2C%20ak%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
-//     var url = url1+url2+url3;
-//     console.log(input_location);
-
-//     $.ajax({
-//       dataType: "json",
-//       url: url,
-//       success: function(response) {
-
-//         try{
-//         var wind = response.query.results.channel.wind;
-//         var channel = response.query.results.channel;
-//         var units = response.query.results.channel.units;
-//         document.getElementById('weather_temperature').innerHTML = "Temperature : " + farenheitToCelcius(wind.chill) + " Celcius";
-//         document.getElementById('weather_title').innerHTML = "Location Title : " + channel.title;
-//         document.getElementById('weather_description').innerHTML = "Location Description : " + channel.description;
-//         document.getElementById('weather_wind_speed').innerHTML = "Wind Speed : " + parseFloat(wind.speed*0.6213711920).toFixed(2) + " km/h";
-//         }catch(error){
-//             alert('City Not Found :(');
-//         }
-
-//       }
-//     });
-// }
-//testing
-function getWeather(){
-    //https://maps.googleapis.com/maps/api/geocode/json?address=Winnetka&key=API_KEY
-    var apiKey = "AIzaSyAAxypsNYuwjy_Mc2uqEngbMxAPVO9A12M";
-    var cityName = document.getElementById("weather_location").value;
-    var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cityName + "&key=" + apiKey;
-    var latitude = "";
-    var longitude = "";
-    var timeFromGeo = "";
+ function getWeather() {
+    var input_location = document.getElementById("weather_location").value;
+    var url1 = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22"
+    var url2 = input_location;
+    var url3 = "%2C%20ak%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+    var url = url1+url2+url3;
+    console.log(input_location);
 
     $.ajax({
       dataType: "json",
@@ -643,47 +898,15 @@ function getWeather(){
       success: function(response) {
 
         try{
-
-
-        latitude = response.results[0].geometry.location.lat;
-        longitude = response.results[0].geometry.location.lng;
-        timeFromGeo =  getTimeFromGeoLocation(latitude, longitude);
-
-        //console.log(response.results[0].geometry.location.lat);
-        console.log(response);
-        console.log(latitude);
-        //console.log("latitude = " + latitude);
-        //console.log("longitude = " + longitude);
-
-
-        //document.getElementById('weather_temperature').innerHTML = "time = " + timeFromGeo;
+        var wind = response.query.results.channel.wind;
+        var channel = response.query.results.channel;
+        var units = response.query.results.channel.units;
+        document.getElementById('weather_temperature').innerHTML = "Temperature : " + farenheitToCelcius(wind.chill) + " Celcius";
+        document.getElementById('weather_title').innerHTML = "Location Title : " + channel.title;
+        document.getElementById('weather_description').innerHTML = "Location Description : " + channel.description;
+        document.getElementById('weather_wind_speed').innerHTML = "Wind Speed : " + parseFloat(wind.speed*0.6213711920).toFixed(2) + " km/h";
         }catch(error){
             alert('City Not Found :(');
-            alert(error);
-        }
-
-      }
-    });
-
-}
-
-function getTimeFromGeoLocation(latitude, longitude){
-console.log("latitude in geo = " + latitude);
- //http://api.geonames.org/timezone?lat=45.5016889&lng=-73.567256&username=demo
-var timeFromGeo = "";
-   // var url = "http://api.geonames.org/timezone?lat=45.5016889&lng=-73.567256&username=tikaylou";
-    var url = "http://api.geonames.org/timezoneJSON?lat=" + latitude + "&lng=" + longitude + "&username=tikaylou";
-    $.ajax({
-      dataType: "json",
-      url: url,
-      success: function(response) {
-
-        try{
-        var timeFound = response.time;
-        console.log("GEONAMES  response = " + timeFound);
-        document.getElementById('weather_temperature').innerHTML = "time = " + timeFound;
-        }catch(error){
-            alert('Time Not Found :(');
         }
 
       }
@@ -697,31 +920,74 @@ function farenheitToCelcius(value){
 
 }
 
-
-
-function getGeocode(){
-    var input_location = document.getElementById("weather_location").value;
-    var url1 = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-    var url2 = input_location;
-    var url3 = "&key=AIzaSyCiq6fTkZwSKgvhzY-HNDZM5YQD0ebyZBE";
-    var url = url1+url2+url3;
-    console.log(input_location);
-    console.log(url);
-
-
-$.ajax({
+function getTimeFromLocation(){
+    //https://maps.googleapis.com/maps/api/geocode/json?address=Winnetka&key=API_KEY
+    var apiKey = "AIzaSyAAxypsNYuwjy_Mc2uqEngbMxAPVO9A12M"; // tuan's api key
+    //var apiKey = "AIzaSyCiq6fTkZwSKgvhzY-HNDZM5YQD0ebyZBE";
+    var cityName = document.getElementById("weather_location").value;
+    var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cityName + "&key=" + apiKey;
+    var latitude = "";
+    var longitude = "";
+    var timeFromGeo = "";
+//setInterval(function() {
+    $.ajax({
       dataType: "json",
       url: url,
       success: function(response) {
 
         try{
-            console.log(JSON.stringify(response));
+
+
+        latitude = response.results[0].geometry.location.lat;
+        longitude = response.results[0].geometry.location.lng;
+        timeFromGeo =  getTimeFromGeoLocation(latitude, longitude);
+        //console.log(response.results[0].geometry.location.lat);
+        //console.log(response);
+        //console.log(latitude);
+        //console.log("latitude = " + latitude);
+        //console.log("longitude = " + longitude);
+
+
+        //document.getElementById('weather_temperature').innerHTML = "time = " + timeFromGeo;
         }catch(error){
-            alert('City Not Found :(');
+            alert('City Not Found :( (time)');
+            alert(error);
         }
 
       }
     });
+//}, 1000);
+
+}
+
+function getTimeFromGeoLocation(latitude, longitude){
+
+    // Updating the time every second
+   // setInterval(function() {
+        console.log("latitude in geo = " + latitude);
+     //http://api.geonames.org/timezone?lat=45.5016889&lng=-73.567256&username=demo
+        var timeFromGeo = "";
+       // var url = "http://api.geonames.org/timezone?lat=45.5016889&lng=-73.567256&username=tikaylou";
+        var url = "http://api.geonames.org/timezoneJSON?lat=" + latitude + "&lng=" + longitude + "&username=tikaylou";
+        $.ajax({
+          dataType: "json",
+          url: url,
+          success: function(response) {
+
+            try{
+            var timeFound = response.time;
+            //console.log("GEONAMES  response = " + timeFound);
+            document.getElementById('date_time').innerHTML = "Date and time = " + timeFound;
+            document.getElementById('timezoneId').innerHTML = "time zone id = " + response.timezoneId;
+            //alert("Time is " + timeFound);
+            }catch(error){
+                alert('Time Not Found :(');
+            }
+
+          }
+        });
+        
+  //  }, 1000);
 
 }
 
@@ -878,9 +1144,11 @@ function request2(){
             })
 
     }
+    
+        
+function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}   
 
-function getTime(){
-
-
-}
 
