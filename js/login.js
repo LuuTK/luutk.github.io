@@ -562,10 +562,7 @@ function saveColor() {
                 after_mod();
             })
         })
-    }else {
-        alert("update color");
-        clearForm();
-    }
+    
     
 }
 
