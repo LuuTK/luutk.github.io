@@ -289,7 +289,7 @@ function loadFullCalendar() {
              return false;
         }
     });
-    colorLoop()
+   // colorLoop()
 }
 
 
