@@ -457,7 +457,7 @@ function mod_display(calEvent){
 }
 
 function saveColor() {
-    
+    auth();
     $('#customcolorcategory').popover('hide');
     
     var data = document.getElementById('colourChoice').value;
