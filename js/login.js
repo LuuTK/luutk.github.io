@@ -2,6 +2,15 @@ var calendar;
 var edit =false;
 var visible = false; // stores where popovers are visible
 var colorVisible = false; //store where color popover are visible
+var customcolorVisible =false; //store where custom color popover
+var IDArrayIndex =0;
+var colorArrayIndex =0;
+var arrayId = [];
+var arrayColors = [];
+var click = false;
+arrayID = JSON.parse(localStorage.getItem('idArray'));
+arrayColors = JSON.parse(localStorage.getItem('colorArray'));
+
 
 //toggleTable(true);
 //toggleTable(true);
@@ -41,7 +50,7 @@ function signinCallback(resp) {
         });
     });
     //set cal colour
-    localStorage.setItem("colour", "grey");
+    //localStorage.setItem("colour", "grey");
 }
 
 /**
@@ -102,7 +111,6 @@ function insert(){
                     "dateTime": localStorage.getItem('endDate'),
                     "timeZone": "America/Toronto"
                 }
-                     
             };
         }else{
             var remind = true
@@ -110,12 +118,9 @@ function insert(){
             console.log("reminder: "+ reminder)
             var min = document.getElementById("remindMin").value;
             var resource = {
-                //Title of the event
                 "summary": localStorage.getItem('Title'),
-                //location
                 "location": localStorage.getItem('location'),
                 "start": {
-                    //start time: formate YY-mm-ddTHH:MM:SS / Year-month/dateTHour:Mins:second
                     "dateTime": localStorage.getItem('startDate'),
                     "timeZone": "America/Toronto"
                 },
@@ -123,12 +128,6 @@ function insert(){
                     "dateTime": localStorage.getItem('endDate'),
                     "timeZone": "America/Toronto"
                 },
-                //"defaultReminders": [
-                //    {
-                //        "method": reminder,
-                //        "minutes": 30
-                //    }
-                //],
                 "reminders": {
                     "useDefault": false,
                     "overrides": [{
@@ -146,6 +145,8 @@ function insert(){
         });
         request.execute(function(resp){
             console.log(resp);
+            //console.log(resp.id);
+            localStorage.setItem("gEventID", resp.id)
         })
     })
 
@@ -185,9 +186,10 @@ function loadFullCalendar() {
         // Connect to Google Calendar
         googleCalendarApiKey : 'AIzaSyCiq6fTkZwSKgvhzY-HNDZM5YQD0ebyZBE',
         events : {
-            googleCalendarId : email,
-            color: localStorage.getItem("colour")
+            googleCalendarId : email
+            //color: localStorage.getItem("colour")
         },
+
         header: {
             left: 'prev,next today',
             center: 'title',
@@ -197,76 +199,164 @@ function loadFullCalendar() {
         defaultView: 'month',
 
 
-     //allows to be resized in week/day view, as well as moved around
-     editable :true,
-     selectable: true,
-     selectHelper: true,
+         //allows to be resized in week/day view, as well as moved around
+         editable :true,
+         selectable: true,
+         selectHelper: true,
 
-     // Called when a calendar event is clicked
-     select: function(start, end, allDay) {
-        // alert("Please enter new event in side form an press done");
+         // Called when a calendar event is clicked
+         select: function(start, end, allDay) {
+            // alert("Please enter new event in side form an press done");
 
-        // Dismiss popover when clicking calendar
-        closePopup();
-     },
+            // Dismiss popover when clicking calendar
+            closePopup();
+         },
+            /////////////////////////////////////////////////////
+            /////////////////////////HERE////////////////////////
+            /////////////////////////////////////////////////////
 
-     //after the user clicks on an event he has to click the delete or modify button to delete or modify the event he has selected
-     eventClick: function(calEvent, jsEvent, view) {
-         // disable redirect to google
-         // calEvent.url = null
-         //get and set event google event ID when user click on it.
-         var eventID = calEvent.id;
-         localStorage.setItem('gEventID', eventID);
+            //eventRender: function(calEvent, element) {
+            //    var pos = 0
+            //    arrayColors = JSON.parse(localStorage.getItem('colorArray'));
+            //    arrayId = JSON.parse(localStorage.getItem('idArray'));
+            //    console.log("Render color: "+arrayColors)
+            //    console.log("Render ID: "+arrayId)
+            //    for(var i = 0; i < arrayId.length; i++) {
+            //        pos = i
+            //        if (calEvent.id == arrayId[pos]) {
+            //            consol.log("Found EVENT with same ID")
+            //            element.css('background-color', arrayColors[pos]);
+            //        }
+            //    }
+            //},
 
-         var title = calEvent.title;
-         var location = calEvent.location;
-         var startTime = moment(calEvent.start).format("DD-MM-YYYY HH:mm");
-         var endTime = moment(calEvent.end).format("DD-MM-YYYY HH:mm");
 
-         if (typeof location == 'undefined') {
-            location = "";
-         }
-         localStorage.setItem("cur_title", title)
-         localStorage.setItem("cur_location", location)
-         localStorage.setItem("cur_sTime", startTime)
-         localStorage.setItem("cur_eTime", endTime)
-        // localStorage.setItem("cur_color",color)
 
-         // Dismiss/show popovers
-        if (visible) {
-            visible = false;
-            $('.popover').popover('hide');
-        } else {
-            visible = true;
-            $(this).popover({
-                html: true,
-                placement: 'right',
-                container: 'body',
-                title: title,
-                content: "<div id='eventinfo'><p><b>Location:</b>  " + location
-                + "</p><p><b>Start Time:</b> " + startTime 
-                + "</p><p><b>End Time:</b> " + endTime
-                + "</p>"
-                            +"<p>Category"
-                            +"<select id='color'>"
-                            +"<option value='default'>Default</option>"
-                            +"<option value='red'>Red</option>"
-                            +"<option value='green'> Green </option>"
-                            +"</select></p>"
-                + "<button type='button' onclick='mod_display()' class='btn btn-primary'>Modify</button>  "
-                + "<button type='button' onclick='deleteEvent()' class='btn btn-primary'>Delete</button>"
-                +"<button type='button' onclick='saveColor()' class='btn btn-primary'>Save</button>"
-                +"<button type = 'button' onclick ='showColorOption()' class = 'btn btn-primary'>Choose Custom Color</button>"
-                + "</div>"
-            })
-            $(this).popover('show');
+         //after the user clicks on an event he has to click the delete or modify button to delete or modify the event he has selected
+         eventClick: function(calEvent, jsEvent, view) {
+             // disable redirect to google
+             // calEvent.url = null
+             //get and set event google event ID when user click on it.
+            
+            var eventID = calEvent.id;
+             localStorage.setItem('gEventID', eventID);
+             click = true
 
+             var title = calEvent.title;
+             var location = calEvent.location;
+             var startTime = moment(calEvent.start).format("DD-MM-YYYY HH:mm");
+             var endTime = moment(calEvent.end).format("DD-MM-YYYY HH:mm");
+
+             if (typeof location == 'undefined') {
+                location = "";
+             }
+             localStorage.setItem("cur_title", title)
+             localStorage.setItem("cur_location", location)
+             localStorage.setItem("cur_sTime", startTime)
+             localStorage.setItem("cur_eTime", endTime)
+            // localStorage.setItem("cur_color",color)
+
+             // Dismiss/show popovers
+            if (visible) {
+                visible = false;
+                $('.popover').popover('hide');
+            } else {
+                visible = true;
+                $(this).popover({
+                    html: true,
+                    placement: 'right',
+                    container: 'body',
+                    title: title,
+                    content: "<div id='eventinfo'><p><b>Location:</b>  " + location
+                    + "</p><p><b>Start Time:</b> " + startTime 
+                    + "</p><p><b>End Time:</b> " + endTime
+                    + "</p>"
+                                +"<p>Category"
+                                +"<select id='colourChoice'>"
+                                +"<option value='blue'>Default</option>"
+                                +"<option value='red'>Red</option>"
+                                +"<option value='green'> Green </option>"
+                                +"</select></p>"
+                    + "<button type='button' onclick='mod_display()' class='btn btn-primary'>Modify</button>  "
+                    + "<button type='button' onclick='deleteEvent()' class='btn btn-primary'>Delete</button>"
+                    +"<button type='button' onclick='saveColor()' class='btn btn-primary'>Save</button>"
+                    +"<button type = 'button' onclick ='chooseColorOption()' class = 'btn btn-primary'>Choose Custom Color</button>"
+                    + "</div>"
+                })
+                $(this).popover('show');
+
+            }
+             return false;
         }
-         return false;
-     }
-
     });
+    colorLoop()
 }
+
+
+function colorLoop(){
+    
+    console.log("COLOR LOOP")
+    arrayColors = JSON.parse(localStorage.getItem('colorArray'));
+    arrayId = JSON.parse(localStorage.getItem('idArray'));
+    console.log(arrayColors)
+    console.log(arrayId)
+    for(var i = 0; i < arrayId.length; i++) {
+        var events = $('#calendar').fullCalendar('clientEvents', function(evt) {
+                                                // console.log("FOUND EVENT!!");
+            return evt.id == arrayId[i];
+        });
+        events.color = arrayColors[i];
+        $('#calendar').fullCalendar('updateEvent', events);
+
+        //$('#calendar').fullCalendar({
+        //
+        //    eventRender: function(event, element) {
+        //        for(var i = 0; i < arrayId.length; i++) {
+        //            pos = i
+        //            if (event.id == arrayId[pos]) {
+        //                element.css('background-color', arrayColors[pos]);
+        //            }
+        //        }
+        //    }
+            //events:[
+            //    {
+            //        id: arrayId[pos]
+            //    }
+            //],
+            //eventColor: arrayColors[pos]
+       // });
+    }
+}
+function chooseColorOption(){
+    if (customcolorVisible) {
+        customcolorVisible = false;
+        $('#customcolorcategory').popover('hide');
+    } else {
+        customcolorVisible = true;
+        $('#customcolorcategory').popover({
+                                    html: true,
+                                    placement: 'down',
+                                    container: 'body',
+                                    title: 'Choose color',
+                                    content:'<p><select id = "colourChoiceTwo">'
+                                    +'<option value="blue">Default</option>'
+                                    +'<option value="red">Red</option>'
+                                    +'<option value="green"> Green </option>'
+                                    +'<option value="purple"> Purple </option>'
+                                    +'<option value ="yellow"> Yellow </option>'
+                                    +'<option value ="black"> Black </option>'
+                                    +'<option value ="brown"> Brown </option>'
+                                    +'<option value ="grey"> Grey </option>'
+                                    +'<option value ="pink"> Pink </option>'
+                                    +'<option value ="orange"> Orange </option>'
+                                    +'</select></p>'
+                                    +'<p><button type="button" class="btn btn-primary form-submit" onclick="saveColor()">Save</button></p>'
+                                    })
+        $('#customcolorcategory').popover('show');
+    }
+}
+
+
 
 function showColorOption(){
     if (colorVisible) {
@@ -280,7 +370,7 @@ function showColorOption(){
                             container: 'body',
                             title: 'Choose color',
                             content:'<p><select id = "colorChoice">'
-                                                    +'<option value="default">Default</option>'
+                                                    +'<option value="blue">Default</option>'
                                                     +'<option value="red">Red</option>'
                                                     +'<option value="green"> Green </option>'
                                                     +'<option value="purple"> Purple </option>'
@@ -291,42 +381,18 @@ function showColorOption(){
                                                     +'<option value ="pink"> Pink </option>'
                                                     +'<option value ="orange"> Orange </option>'
                                                     +'</select></p>'
-                                                    +'<p><button type="button" class="btn btn-primary form-submit" onclick="saveColor()">Save</button></p>'
+                                                    +'<p><button type="button" class="btn btn-primary form-submit" onclick="addColor()">Save</button></p>'
                             })
         $('#colorcategory').popover('show');
     }
 }
 
-// function showColorOptionPopup(){
-//     if (colorVisible) {
-//         colorVisible = false;
-//         $('#eventinfo').popover('hide');
-//     } else {
-//         colorVisible = true;
-//         $('#eventinfo').popover({
-//                             html: true,
-//                             placement: 'down',
-//                             container: 'body',
-//                             title: 'Choose color',
-//                             content:'<p><select id = "colorChoicePopup">'
-//                                                     +'<option value="default">Default</option>'
-//                                                     +'<option value="red">Red</option>'
-//                                                     +'<option value="green"> Green </option>'
-//                                                     +'<option value="purple"> Purple </option>'
-//                                                     +'<option value ="yellow"> Yellow </option>'
-//                                                     +'<option value ="black"> Black </option>'
-//                                                     +'<option value ="brown"> Brown </option>'
-//                                                     +'<option value ="grey"> Grey </option>'
-//                                                     +'<option value ="pink"> Pink </option>'
-//                                                     +'<option value ="orange"> Orange </option>'
-//                                                     +'</select></p>'
-//                                                     +'<p><button type="button" class="btn btn-primary form-submit" onclick="saveColor()">Save</button></p>'
-//                             })
-//         $('#eventinfo').popover('show');
-//     }
-// }
-
-//function addColor(Category,Color){
+function addColor(){
+    
+var data  = document.getElementById("colorChoice").value;
+document.getElementById("color").innerHTML += '<option value="'+data+'">'+data+'</option>';
+$('#colorcategory').popover('hide');
+}
 //    colorVisible = false;
 //    document.getElementById("color").innerHTML += '<option value = Color> Category </option>';
 //}
@@ -391,101 +457,76 @@ function mod_display(calEvent){
 }
 
 function saveColor() {
-
-    // if (flag == 1) {
-        var data  = document.getElementById("colorChoice").value;
-        localStorage.setItem("colour", data);
-        document.getElementById("color").innerHTML += '<option value="'+data+'">'+data+'</option>';
-
-        // if (data == "default"){
-        //         data = "blue";
-        // }
-
-        // if (data =! "default") {
-            //     document.getElementById("colorContainer").innerHTML += '<option value="'+data+'">'+data+'</option>';
-            //     location.reload();
-            // }
-        $('#colorcategory').popover('hide');
-    // }
-
-    // if (flag==2) {
-    //     var data = document.getElementById("colorChoicePopup").value;
-
-    //     if (data == "default") {
-    //         data = "blue";
-    //     }
-
-        // calendar.fullCalendar('renderEvent',
-        //                       {
-        //                       title: localStorage.getItem('cur_title'),
-        //                       location: localStorage.getItem('cur_location'),
-        //                       start:localStorage.getItem('testsTime'),
-        //                       end: localStorage.getItem('testeTime'),
-        //                       color: data
-        //                       },
-        //                       true);
-    //     $('#eventinfo').popover('hide');
-    // }
     
-    // load calendar API
-    gapi.client.load('calendar', 'v3', function(){
-                     
-                     if (reminder == "none") {
-                     var resource = {
-                     //Title of the event
-                     "summary": localStorage.getItem('Title'),
-                     //location
-                     "location": localStorage.getItem('location'),
-                     "start": {
-                     //start time: formate YY-mm-ddTHH:MM:SS / Year-month/dateTHour:Mins:second
-                     "dateTime": localStorage.getItem('startDate'),
-                     "timeZone": "America/Toronto"
-                     },
-                     "end": {
-                     "dateTime": localStorage.getItem('endDate'),
-                     "timeZone": "America/Toronto"
-                     },
-                     "color": data
-                     };
-                     } else {
-                     var resource = {
-                     //Title of the event
-                     "summary": localStorage.getItem('Title'),
-                     //location
-                     "location": localStorage.getItem('location'),
-                     "start": {
-                     //start time: formate YY-mm-ddTHH:MM:SS / Year-month/dateTHour:Mins:second
-                     "dateTime": localStorage.getItem('startDate'),
-                     "timeZone": "America/Toronto"
-                     },
-                     "color": data,
-                     "end": {
-                     "dateTime": localStorage.getItem('endDate'),
-                     "timeZone": "America/Toronto"
-                     },
-                     "reminders": {
-                     "useDefault": false,
-                     "overrides": [{
-                                   "method": reminder,
-                                   "minutes": 15
-                                   }]
-                     }
-                     };
-                     }
-                     
-                     var request = gapi.client.calendar.events.update({
-                                                                      'calendarId': 'primary',
-                                                                      'eventId': localStorage.getItem('gEventID'),
-                                                                      'resource': resource
-                                                                      });
-                     after_mod();
-                     request.execute(function(resp){
-                                     console.log(resp);
-                                     })
-                     })
-    after_mod();
-
-
+    $('#customcolorcategory').popover('hide');
+    
+    var data = document.getElementById('colourChoice').value;
+    
+    localStorage.setItem("colour", data);
+    
+    alert("This is the color" + data);
+//    var eventId= localStorage.getElementById('gEventID')
+////
+////   
+////    // we get the arrays and add the new elements
+//    arrayId = JSON.parse(localStorage.getItem('idArray'));
+//    arrayId[IDArrayIndex] = eventId;
+//    console.log("eventID: "+ eventId);
+//    IDArrayIndex++;
+//    
+//    arrayColors = JSON.parse(localStorage.getItem('colorArray'));
+//    arrayColors[colorArrayIndex] = data;
+//    colorArrayIndex++;
+//    // we store the arrays again
+//    localStorage.setItem('colorArray',JSON.stringify(arrayColors));
+//    localStorage.setItem('idArray',JSON.stringify(arrayId));
+////
+//
+//    
+//    
+//    
+//    // load calendar API
+//    gapi.client.load('calendar', 'v3', function(){
+// localStorage.setItem('colour', data);
+//                     
+//                     var resource = {
+//                         //Title of the event
+//                         "summary": localStorage.getItem('cur_title'),
+//                         //location
+//                         "location": localStorage.getItem('cur_location'),
+//                         "start": {
+//                         //start time: formate YY-mm-ddTHH:MM:SS / Year-month/dateTHour:Mins:second
+//                         "dateTime": localStorage.getItem('cur_sTime'),
+//                         "timeZone": "America/Toronto"
+//                         },
+//                         "end": {
+//                         "dateTime": localStorage.getItem('cur_eTime'),
+//                         "timeZone": "America/Toronto"
+//                         },
+//                         "colorId" : data
+//                    };
+//    
+//                     var request = gapi.client.calendar.events.update({
+//                                                                      'calendarId': 'primary',
+//                                                                      'eventId': localStorage.getItem('gEventID'),
+//                                                                      'resource': resource
+//                                                                      });
+//                     after_mod();
+//                     request.execute(function(resp){
+//                                     console.log(resp);
+//                                     after_mod();
+//                                     })
+//                     
+//                     
+//                     
+//
+//                     })
+//    
+//    
+//    alert("calling colorLoop");
+//        colorLoop();
+//
+    
 }
 
 
@@ -497,22 +538,12 @@ function modify(){
     data[3] = document.getElementById("mftime").value;
     data[4] = document.getElementById("mtdate").value;
     data[5] = document.getElementById("mttime").value;
-    data[6] = document.getElementById("color").value;
-    
-    if (data[6] == "default"){
-        data[6] = "blue";
-    }
-//    else if (data[6] =="newCategory"){
-//        //get the color and name for the color - popup ? or alert ?
-//        showColorOption();
-//    }
+
 
     localStorage.setItem('Title', data[0]);
     localStorage.setItem('location', data[1]);
-    //localStorage.setItem('color', data[6]);
     localStorage.setItem("cur_title", data[0])
     localStorage.setItem("cur_location", data[1])
-    //localStorage.setItem("cur_color", data[6])
 
     if(validateForm(data)){
 
@@ -557,6 +588,7 @@ function modify(){
                         "dateTime": localStorage.getItem('startDate'),
                         "timeZone": "America/Toronto"
                     },
+                         
                     "end": {
                         "dateTime": localStorage.getItem('endDate'),
                         "timeZone": "America/Toronto"
@@ -578,6 +610,7 @@ function modify(){
             });
             request.execute(function(resp){
                 console.log(resp);
+                console.log(resp.id);
                 after_mod();
             })
         })
@@ -597,7 +630,7 @@ function after_mod(calEvent){
     + "</p>"
     +"<p>Category"
     +"<select id='color'>"
-    +"<option value='default'>Default</option>"
+    +"<option value='blue'>Default</option>"
     +"<option value='red'>Red</option>"
     +"<option value='green'> Green </option>"
     +"</select></p>"
@@ -621,7 +654,7 @@ function deleteEvent() {
        
         var request = gapi.client.calendar.events.delete({
             'calendarId': 'primary',
-            'eventId': localStorage.getItem('gEventID'),
+            'eventId': localStorage.getItem('gEventID')
          
         });
       //  $('#calendar').fullCalendar('removeEvents', calEvent._id);
@@ -660,10 +693,6 @@ function editEvent(calEvent){
     data[4] = document.getElementById("tdate").value;
     data[5] = document.getElementById("ttime").value;
     data[6] = document.getElementById("color").value;
-
-    if (data[6] == "default"){
-        data[6] = "blue";
-    }
 //    else if (data[6] =="newCategory"){
 //        //get the color and name for the color - popup ? or alert ?
 //        showColorOption();
@@ -714,10 +743,6 @@ function sendData(calEvent,edit)
     data[5] = document.getElementById("ttime").value;
     data[6] = document.getElementById("color").value;
     
-    if (data[6] == "default"){
-        data[6] = "blue";
-    }
-
     localStorage.setItem('Title', data[0]);
     localStorage.setItem('location', data[1]);
 
@@ -728,6 +753,7 @@ function sendData(calEvent,edit)
         var endDate = data[4]+"T"+data[5]+":00";
         localStorage.setItem('startDate', startDate);
         localStorage.setItem('endDate', endDate);
+        localStorage.setItem('colour', data[6]);
         insert();
         calendar.fullCalendar('renderEvent',
                               {
@@ -738,6 +764,14 @@ function sendData(calEvent,edit)
                               color: data[6]
                               },
                               true)
+
+        arrayId = JSON.parse(localStorage.getItem('idArray'));
+        arrayId[IDArrayIndex] = localStorage.getItem("gEventID")
+        console.log("arrayID: "+ arrayId)
+        IDArrayIndex++
+        localStorage.setItem('idArray',JSON.stringify(arrayId));
+        console.log("IN send form  eventID: "+ JSON.parse(localStorage.getItem('idArray')))
+
     }else {
         alert("There was an error in your form, please make sure you filled everything properly");
     }
@@ -1019,7 +1053,7 @@ function shareCalendar() {
     // Validate each email
     for (i = 0; i < emailArray.length; i++) {
         if (!validateEmail(emailArray[i])) {
-            alert("Please enter an email");
+            alert("Please enter an valid email address");
             return;
         }
     }
@@ -1028,7 +1062,7 @@ function shareCalendar() {
 
     // Share invite to each invitee
     for (i = 0; i < emailArray.length; i++) {
-        shareToInvitee(emailArray[i]);
+        shareToInviteeTest(emailArray[i]);
     }
 }
 
@@ -1214,4 +1248,30 @@ function shareTest(){
         });
 
 
+}
+
+
+function shareToInviteeTest(email) {
+
+  auth();
+            //load calendar API
+            gapi.client.load('calendar', 'v3', function(){
+                var resource = 
+
+                 {
+                 "role": "reader",
+                 "scope": {
+                  "type": "user",
+                  "value": email
+                 }
+                }
+                var request = gapi.client.calendar.acl.insert({
+                    'calendarId': 'primary',
+
+                    'resource': resource
+                });
+                request.execute(function(resp){
+                    console.log(resp);
+                })
+            })
 }

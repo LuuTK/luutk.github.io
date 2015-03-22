@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>GetWorkDone - Home</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>GetWorkDone - Home</title>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
@@ -12,21 +12,21 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-		<link rel="stylesheet" type="text/css" href="style.css"/>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
 
-		<script src="https://apis.google.com/js/client:platform.js" async defer></script>
+        <script src="https://apis.google.com/js/client:platform.js" async defer></script>
         <script src = "https://plus.google.com/js/client:plusone.js"></script>
 
-		<!-- Links and script for calendar-->
-		<link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
-		<script src='lib/moment.min.js'></script>
-		<script src='fullcalendar/fullcalendar.js'></script>
-		<script type='text/javascript' src='fullcalendar/gcal.js'></script>
-		<script src = 'js/login.js'></script>
+        <!-- Links and script for calendar-->
+        <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+        <script src='lib/moment.min.js'></script>
+        <script src='fullcalendar/fullcalendar.js'></script>
+        <script type='text/javascript' src='fullcalendar/gcal.js'></script>
+        <script src = 'js/login.js'></script>
 
-	</head>	<!-- Calls loadFullCalendar when this html is loaded -->
+    </head> <!-- Calls loadFullCalendar when this html is loaded -->
 
-	<body onload="loadFullCalendar()">
+    <body onload="loadFullCalendar()">
 
     <header>
         <div class="navbar navbar-custom">
@@ -66,7 +66,7 @@
                     <div class="widget">
                         <h5>Enter Location for weather!</h5>
                         <input type="text" id="weather_location" value="">
-                        <button type="button" class="btn btn-primary" onclick="shareTest()">Weather!</button>
+                        <button type="button" class="btn btn-primary" onclick="getWeather()">Weather!</button>
                         <button type="button" class="btn btn-primary" onclick="getTimeFromLocation()">TimeZone</button>
                         <div id="date_time"></div>
                         <div id="timezoneId"></div>
@@ -118,17 +118,7 @@
                                     <td>
                                        
                                         <select id = "color">
-                                            <option value="default">Default</option>
-                                            <!--<option value="red">Red</option>
-                                            <option value="green"> Green </option>
-                                            <option value="purple"> Purple </option>
-                                            <option value ="yellow"> Yellow </option>
-                                            <option value ="black"> Black </option>
-                                            <option value ="brown"> Brown </option>
-                                            <option value ="grey"> Grey </option>
-                                            <option value ="pink"> Pink </option>
-                                            <option value ="orange"> Orange </option>-->
-                                            <!-- add more colour as needed -->
+                                            <option value="blue">Default</option>
                                         </select>
                                     
                                     </td>
@@ -142,7 +132,8 @@
                                 onclick ="showColorOption()">Add Category</button>
                             <button type="button" class="btn btn-primary form-submit" onclick="clearForm()">Cancel</button>
                             <button type="button" class="btn btn-primary form-submit" onclick="sendData()">Done</button>
-                        </div>  
+                        </div>
+                        <div id="customcolorcategory"></div>
                         <div id="colorcategory"></div>
                     </div>
 
@@ -153,6 +144,8 @@
                     <div id="invite"></div>
                     <div class="widget">
                         <div class="form-submit">
+                            Email <input type="text" name="Email" style="width:80%" id="shareUserEmail">
+                            <br><br>
                             <button type="button" class="btn btn-primary form-submit" onclick="enterEmail()">Invite</button>
                             <button type="button" class="btn btn-primary form-submit" onclick="shareCalendar()">Share</button>
                         </div>  
@@ -180,7 +173,8 @@
         <!-- Footer -->
         <div class="navbar navbar-custom navbar-fixed-bottom">
             <div class="container">
-                <p class="footer-text">&copy GetWorkDone 2015</p>
+                <p class="footer-text">Version 3</p>
+                <p class="footer-text">copy GetWorkDone 2015</p>
             </div>
         </div>
     </body>
