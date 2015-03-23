@@ -184,7 +184,7 @@ function loadFullCalendar() {
     calendar=$('#calendar').fullCalendar({
 
         // Connect to Google Calendar
-        googleCalendarApiKey : 'AIzaSyCiq6fTkZwSKgvhzY-HNDZM5YQD0ebyZBE',
+        googleCalendarApiKey : 'AIzaSyB5DEE-jivGjx1LjoTMUL1rQbJ5OJF-_6Q',
         events : {
             googleCalendarId : email
             //color: localStorage.getItem("colour")
