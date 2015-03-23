@@ -503,7 +503,7 @@ function saveColor() {
                     var resource = {
                       "kind": "calendar#colors",
                       "event": {
-                        (localStorage.getItem('gEventID')): {
+                        localStorage.getItem('gEventID'): {
                           "background": "red",
                           "foreground": "blue"
                         }
