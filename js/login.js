@@ -464,7 +464,7 @@ function saveColor() {
     
     localStorage.setItem("colour", data);
     
-    alert("This is the color" + data);
+    alert("This is the color " + data);
 //    var eventId= localStorage.getElementById('gEventID')
 ////
 ////   
@@ -547,6 +547,7 @@ function saveColor() {
 //
 
         //load calendar API
+        console.log("event Id  = " + localStorage.getItem('gEventID'));
         gapi.client.load('calendar', 'v3', function(){
 
             
@@ -556,10 +557,9 @@ function saveColor() {
                 'colorId': 'red'
 
             });
-                console.log(JSON.stringify(request));
+                console.log("JSON request = " + JSON.stringify(request));
             request.execute(function(resp){
-                console.log(resp);
-                console.log(resp.id);
+                console.log("response = " + JSON.stringify(resp));
                 after_mod();
             })
         })
