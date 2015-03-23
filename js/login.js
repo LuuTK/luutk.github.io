@@ -75,7 +75,7 @@ function apiClientLoaded() {
  */
 function auth(){
     //Set api key
-    gapi.client.setApiKey('AIzaSyB5DEE-jivGjx1LjoTMUL1rQbJ5OJF-_6Q');//  //OG : AIzaSyCiq6fTkZwSKgvhzY-HNDZM5YQD0ebyZBE
+    gapi.client.setApiKey('AIzaSyB5DEE-jivGjx1LjoTMUL1rQbJ5OJF-_6Q');//  //OG : AIzaSyB5DEE-jivGjx1LjoTMUL1rQbJ5OJF-_6Q
 
     //Set access token
     var token = localStorage.getItem("accessToken");
@@ -995,7 +995,7 @@ function farenheitToCelcius(value){
 function getTimeFromLocation(){
     //https://maps.googleapis.com/maps/api/geocode/json?address=Winnetka&key=API_KEY
     var apiKey = "AIzaSyAAxypsNYuwjy_Mc2uqEngbMxAPVO9A12M"; // tuan's api key
-    //var apiKey = "AIzaSyCiq6fTkZwSKgvhzY-HNDZM5YQD0ebyZBE";
+    //var apiKey = "AIzaSyB5DEE-jivGjx1LjoTMUL1rQbJ5OJF-_6Q";
     var cityName = document.getElementById("weather_location").value;
     var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + cityName + "&key=" + apiKey;
     var latitude = "";
@@ -1207,7 +1207,7 @@ function request2(){
 
         alert("sending request body : "+ sampleRequest);
    // alert("mark1");
-     apiurlrequest="https://www.googleapis.com/calendar/v3/calendars/nkyfxlyy%40gmail.com/events/eg1hnbgm0u1lpn8203os0lu100?key={'AIzaSyCiq6fTkZwSKgvhzY-HNDZM5YQD0ebyZBE'}";
+     apiurlrequest="https://www.googleapis.com/calendar/v3/calendars/nkyfxlyy%40gmail.com/events/eg1hnbgm0u1lpn8203os0lu100?key={'AIzaSyB5DEE-jivGjx1LjoTMUL1rQbJ5OJF-_6Q'}";
   
 
         $.ajax({
