@@ -516,6 +516,7 @@ function saveColor() {
                         "dateTime": localStorage.getItem('endDate'),
                         "timeZone": "America/Toronto"
                     },
+                    "endTimeUnspecified": 'true',
                     "reminders": {
                         "useDefault": false,
                         "overrides": [{
