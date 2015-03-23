@@ -465,87 +465,66 @@ function saveColor() {
     localStorage.setItem("colour", data);
     
     alert("This is the color " + data);
-//    var eventId= localStorage.getElementById('gEventID')
-////
-////   
-////    // we get the arrays and add the new elements
-//    arrayId = JSON.parse(localStorage.getItem('idArray'));
-//    arrayId[IDArrayIndex] = eventId;
-//    console.log("eventID: "+ eventId);
-//    IDArrayIndex++;
-//    
-//    arrayColors = JSON.parse(localStorage.getItem('colorArray'));
-//    arrayColors[colorArrayIndex] = data;
-//    colorArrayIndex++;
-//    // we store the arrays again
-//    localStorage.setItem('colorArray',JSON.stringify(arrayColors));
-//    localStorage.setItem('idArray',JSON.stringify(arrayId));
-////
-//
-//    
-//    
-//    
-//    // load calendar API
-   // gapi.client.load('calendar', 'v3', function(){
-   //  localStorage.setItem('colour', data);
-                    
-   //                  var resource = {
-   //                      //Title of the event
-   //                      "summary": localStorage.getItem('cur_title'),
-   //                      //location
-   //                      "location": localStorage.getItem('cur_location'),
-   //                      "start": {
-   //                      //start time: formate YY-mm-ddTHH:MM:SS / Year-month/dateTHour:Mins:second
-   //                      "dateTime": localStorage.getItem('cur_sTime'),
-   //                      "timeZone": "America/Toronto"
-   //                      },
-   //                      "end": {
-   //                      "dateTime": localStorage.getItem('cur_eTime'),
-   //                      "timeZone": "America/Toronto"
-   //                      },
-   //                      "colorId" : data
-   //                 };
-   
-   //                  var request = gapi.client.calendar.events.update({
-   //                                                                   'calendarId': 'primary',
-   //                                                                   'eventId': localStorage.getItem('gEventID'),
-   //                                                                   'resource': resource
-   //                                                                   });
-   //                  after_mod();
-   //                  request.execute(function(resp){
-   //                                  console.log(resp);
-   //                                  after_mod();
-   //                                  })
-                    
-                    
-                    
 
-   //                  })
+
 /*
-{
-  "kind": "calendar#colors",
-  "updated": datetime,
-  "calendar": {
-    (key): {
-      "background": string,
-      "foreground": string
-    }
-  },
-  "event": {
-    (key): {
-      "background": string,
-      "foreground": string
-    }
-  }
-}
+                var resource = {
+                    //Title of the event
+                    "summary": localStorage.getItem('Title'),
+                    //location
+                    "location": localStorage.getItem('location'),
+                    "start": {
+                        //start time: formate YY-mm-ddTHH:MM:SS / Year-month/dateTHour:Mins:second
+                        "dateTime": localStorage.getItem('startDate'),
+                        "timeZone": "America/Toronto"
+                    },
+                         
+                    "end": {
+                        "dateTime": localStorage.getItem('endDate'),
+                        "timeZone": "America/Toronto"
+                    },
+                    "reminders": {
+                        "useDefault": false,
+                        "overrides": [{
+                            "method": reminder,
+                            "minutes": min
+                        }]
+                    }
+                };
+            }
+            
+            var request = gapi.client.calendar.events.update({
+                'calendarId': 'primary',
+                'eventId': localStorage.getItem('gEventID'),
+                'resource':
+
 */
 
-   
-//    
-//    alert("calling colorLoop");
-//        colorLoop();
-//
-
+                    var resource = {
+                    //Title of the event
+                    "summary": localStorage.getItem('Title'),
+                    //location
+                    "location": localStorage.getItem('location'),
+                    "colorId": 'red',
+                    "start": {
+                        //start time: formate YY-mm-ddTHH:MM:SS / Year-month/dateTHour:Mins:second
+                        "dateTime": localStorage.getItem('startDate'),
+                        "timeZone": "America/Toronto"
+                    },
+                         
+                    "end": {
+                        "dateTime": localStorage.getItem('endDate'),
+                        "timeZone": "America/Toronto"
+                    },
+                    "reminders": {
+                        "useDefault": false,
+                        "overrides": [{
+                            "method": reminder,
+                            "minutes": min
+                        }]
+                    }
+                };
+            
         //load calendar API
         console.log("event Id  = " + localStorage.getItem('gEventID'));
         gapi.client.load('calendar', 'v3', function(){
@@ -554,7 +533,7 @@ function saveColor() {
             var request = gapi.client.calendar.events.update({
                 'calendarId': 'primary', //used to be 'primary'
                 'eventId': localStorage.getItem('gEventID'),
-                'colorId': 'red'
+                'resource' : resource
 
             });
                 console.log("JSON request = " + JSON.stringify(request));
