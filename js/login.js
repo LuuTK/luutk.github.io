@@ -499,11 +499,11 @@ function saveColor() {
                 'resource':
 
 */
-
+    var tempKey = localStorage.getItem('gEventID')
                     var resource = {
                       "kind": "calendar#colors",
                       "event": {
-                        localStorage.getItem('gEventID'): {
+                        (tempKey): {
                           "background": "red",
                           "foreground": "blue"
                         }
