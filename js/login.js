@@ -579,6 +579,7 @@ function modify(){
                     "summary": localStorage.getItem('Title'),
                     //location
                     "location": localStorage.getItem('location'),
+                    "colorId": "red",
                     "start": {
                         //start time: formate YY-mm-ddTHH:MM:SS / Year-month/dateTHour:Mins:second
                         "dateTime": localStorage.getItem('startDate'),
