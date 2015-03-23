@@ -75,7 +75,7 @@ function apiClientLoaded() {
  */
 function auth(){
     //Set api key
-    gapi.client.setApiKey('AIzaSyCiq6fTkZwSKgvhzY-HNDZM5YQD0ebyZBE');
+    gapi.client.setApiKey('AIzaSyB5DEE-jivGjx1LjoTMUL1rQbJ5OJF-_6Q');//  //OG : AIzaSyCiq6fTkZwSKgvhzY-HNDZM5YQD0ebyZBE
 
     //Set access token
     var token = localStorage.getItem("accessToken");
