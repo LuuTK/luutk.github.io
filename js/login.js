@@ -520,8 +520,8 @@ function saveColor() {
                     "reminders": {
                         "useDefault": false,
                         "overrides": [{
-                            "method": reminder,
-                            "minutes": min
+                            "method": 'reminder',
+                            "minutes": 'min'
                         }]
                     }
                 };
