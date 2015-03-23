@@ -556,6 +556,7 @@ function saveColor() {
                 'colorId': 'red'
 
             });
+                console.log(JSON.stringify(request));
             request.execute(function(resp){
                 console.log(resp);
                 console.log(resp.id);
