@@ -519,10 +519,6 @@ function saveColor() {
                     "endTimeUnspecified": 'true',
                     "reminders": {
                         "useDefault": false,
-                        "overrides": [{
-                            "method": 'reminder',
-                            "minutes": 'min'
-                        }]
                     }
                 };
             
