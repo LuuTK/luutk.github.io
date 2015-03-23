@@ -501,8 +501,14 @@ function saveColor() {
 */
 
                     var resource = {
-                    "colorId": 'red',
-                };
+                      "kind": "calendar#colors",
+                      "event": {
+                        (localStorage.getItem('gEventID')): {
+                          "background": "red",
+                          "foreground": "blue"
+                        }
+                      }
+                    };
             
         //load calendar API
         console.log("event Id  = " + localStorage.getItem('gEventID'));
