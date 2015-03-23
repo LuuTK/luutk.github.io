@@ -552,7 +552,7 @@ function saveColor() {
 
             
             var request = gapi.client.calendar.events.update({
-                'calendarId': 'tuankietluu@gmail.com', //used to be 'primary'
+                'calendarId': 'primary', //used to be 'primary'
                 'eventId': localStorage.getItem('gEventID'),
                 'colorId': 'red'
 
