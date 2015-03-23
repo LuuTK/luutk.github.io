@@ -503,7 +503,7 @@ function saveColor() {
                     var resource = {
                       "kind": "calendar#colors",
                       "event": {
-                        (tempKey): {
+                        tempKey: {
                           "background": "red",
                           "foreground": "blue"
                         }
